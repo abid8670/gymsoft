@@ -5,37 +5,45 @@ import {
   Palette, Sun, Moon, Zap, Menu, X, Users, 
   ChevronDown, LayoutDashboard, CalendarCheck, Receipt, 
   MessageSquare, Globe, Building2, DollarSign, FileText, 
-  Download, Smartphone, UserCircle2 
+  Download, ShoppingBag, Scissors, Award, Sparkles, HeartHandshake 
 } from 'lucide-react';
 
 export default function Navbar({ onOpenThemeModal }) {
   const { mode, toggleMode, primaryColor } = useTheme();
   const { 
     currentView, setCurrentView, activeRole, setActiveRole, 
-    gymProfile 
+    businessMode, setBusinessMode, gymProfile 
   } = useGymData();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
+  const [businessDropdownOpen, setBusinessDropdownOpen] = useState(false);
 
   const roles = [
-    { id: 'owner', label: 'Gym Owner', icon: '👑', desc: 'Full financial & admin control' },
-    { id: 'counter', label: 'Front Desk', icon: '🖥️', desc: 'Fast check-ins & fee counter' },
-    { id: 'trainer', label: 'Trainer / Coach', icon: '🏋️', desc: 'Athlete attendance & notes' },
-    { id: 'member', label: 'Member App', icon: '📱', desc: 'Personal check-in pass & streaks' },
+    { id: 'owner', label: 'Owner / Founder', icon: '👑', desc: 'Full financial & admin control' },
+    { id: 'counter', label: 'Front Desk / Reception', icon: '🖥️', desc: 'Fast check-ins & POS counter' },
+    { id: 'trainer', label: 'Trainer / Stylist', icon: '💇', desc: 'Client sessions & commission ledger' },
+    { id: 'member', label: 'Client / Member App', icon: '📱', desc: 'Pass, appointments & workout streaks' },
+  ];
+
+  const businessModes = [
+    { id: 'hybrid', label: '⚡ Hybrid (Gym + Salon & Spa)', desc: 'Fitness + Beauty & Wellness Club' },
+    { id: 'gym', label: '🏋️ Pure Gym & Fitness', desc: 'Weights, cardio, classes & memberships' },
+    { id: 'salon', label: '💅 Luxury Salon & Spa', desc: 'Hair, aesthetics, facials & massages' },
   ];
 
   const appNavItems = [
     { id: 'dashboard', label: 'Overview', icon: LayoutDashboard },
-    { id: 'members', label: 'Members', icon: Users },
-    { id: 'checkin', label: 'Check-In Kiosk', icon: CalendarCheck },
+    { id: 'appointments', label: 'Appointments', icon: Scissors, badge: 'Salon' },
+    { id: 'retailpos', label: 'Retail POS', icon: ShoppingBag, badge: 'Store' },
+    { id: 'members', label: 'Clients & Roster', icon: Users },
+    { id: 'checkin', label: 'Check-In Desk', icon: CalendarCheck },
+    { id: 'commissions', label: 'Commissions', icon: Award, badge: 'Payroll' },
+    { id: 'clientcards', label: 'Client Cards', icon: FileText, badge: 'Formulas' },
     { id: 'invoices', label: 'Invoices', icon: Receipt },
     { id: 'whatsapp', label: 'WhatsApp Hub', icon: MessageSquare },
-    { id: 'website', label: 'Gym Website', icon: Globe },
-    { id: 'directory', label: 'Gyms Directory', icon: Building2 },
+    { id: 'website', label: 'Club Website', icon: Globe },
     { id: 'expenses', label: 'P&L / Profit', icon: DollarSign },
-    { id: 'logs', label: 'Audit Logs', icon: FileText },
-    { id: 'export', label: 'Export Data', icon: Download },
   ];
 
   const isLandingOrDeck = currentView === 'landing' || currentView === 'deck';
@@ -51,8 +59,8 @@ export default function Navbar({ onOpenThemeModal }) {
       alignItems: 'center',
     }}>
       <div className="container-wide" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
-        {/* Brand Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        {/* Brand Logo & Business Mode Selector */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <button
             onClick={() => setCurrentView('landing')}
             style={{
@@ -77,7 +85,6 @@ export default function Navbar({ onOpenThemeModal }) {
               fontWeight: 900,
               fontSize: '1.25rem',
               boxShadow: '0 0 20px var(--color-primary-glow)',
-              transition: 'transform 0.2s ease',
             }}>
               ⚡
             </div>
@@ -88,11 +95,80 @@ export default function Navbar({ onOpenThemeModal }) {
               letterSpacing: '-0.02em',
               color: 'var(--color-text)',
             }}>
-              Gym<span style={{ color: 'var(--color-primary)' }}>Management</span>Soft
+              Zenith<span style={{ color: 'var(--color-primary)' }}>Soft</span>
             </span>
           </button>
 
-          {/* Quick Mode Switcher Pill */}
+          {/* Quick Business Personality Selector */}
+          <div className="desktop-only" style={{ position: 'relative' }}>
+            <button
+              onClick={() => setBusinessDropdownOpen(!businessDropdownOpen)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '4px 10px',
+                borderRadius: 'var(--radius-full)',
+                backgroundColor: 'var(--color-surface-raised)',
+                border: '1px solid var(--color-border)',
+                color: 'var(--color-text)',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+              }}
+            >
+              <span>{businessModes.find(b => b.id === businessMode)?.label.split(' ')[0]}</span>
+              <span style={{ color: 'var(--color-primary)' }}>{businessMode.toUpperCase()}</span>
+              <ChevronDown size={12} />
+            </button>
+
+            {businessDropdownOpen && (
+              <div
+                className="card"
+                style={{
+                  position: 'absolute',
+                  top: '110%',
+                  left: 0,
+                  width: '260px',
+                  padding: '6px',
+                  backgroundColor: 'var(--color-surface)',
+                  border: '1px solid var(--color-border-strong)',
+                  boxShadow: 'var(--shadow-float)',
+                  zIndex: 60,
+                }}
+              >
+                <div style={{ padding: '6px 10px', fontSize: '0.6875rem', fontWeight: 700, color: 'var(--color-text-faint)', textTransform: 'uppercase' }}>
+                  Select Business Personality
+                </div>
+                {businessModes.map(b => (
+                  <button
+                    key={b.id}
+                    onClick={() => {
+                      setBusinessMode(b.id);
+                      setBusinessDropdownOpen(false);
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '8px 10px',
+                      borderRadius: 'var(--radius-xs)',
+                      border: 'none',
+                      backgroundColor: businessMode === b.id ? 'var(--color-primary-light)' : 'transparent',
+                      color: businessMode === b.id ? 'var(--color-primary)' : 'var(--color-text)',
+                      textAlign: 'left',
+                      cursor: 'pointer',
+                      fontSize: '0.8125rem',
+                      fontWeight: businessMode === b.id ? 700 : 500,
+                    }}
+                  >
+                    <p style={{ fontWeight: 700 }}>{b.label}</p>
+                    <p style={{ fontSize: '0.6875rem', color: 'var(--color-text-faint)' }}>{b.desc}</p>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Quick Nav Switcher Pill */}
           <div className="desktop-only" style={{ display: 'flex', gap: '4px', backgroundColor: 'var(--color-surface-raised)', padding: '3px', borderRadius: 'var(--radius-full)', border: '1px solid var(--color-border)' }}>
             <button
               onClick={() => setCurrentView('landing')}
@@ -107,7 +183,7 @@ export default function Navbar({ onOpenThemeModal }) {
                 cursor: 'pointer',
               }}
             >
-              Marketing Site
+              Public Site
             </button>
             <button
               onClick={() => setCurrentView('deck')}
@@ -122,7 +198,7 @@ export default function Navbar({ onOpenThemeModal }) {
                 cursor: 'pointer',
               }}
             >
-              22-Slide Deck
+              Deck (Hybrid)
             </button>
             <button
               onClick={() => setCurrentView('dashboard')}
@@ -137,14 +213,14 @@ export default function Navbar({ onOpenThemeModal }) {
                 cursor: 'pointer',
               }}
             >
-              Live App Demo ⚡
+              Launch Platform ⚡
             </button>
           </div>
         </div>
 
         {/* Center / Portal Navigation (When in SaaS App mode) */}
         {!isLandingOrDeck && (
-          <nav className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: '4px', overflowX: 'auto', maxWidth: '480px', padding: '0 8px' }}>
+          <nav className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: '4px', overflowX: 'auto', maxWidth: '440px', padding: '0 4px' }}>
             {appNavItems.slice(0, 5).map((item) => {
               const Icon = item.icon;
               const isActive = currentView === item.id;
@@ -153,17 +229,17 @@ export default function Navbar({ onOpenThemeModal }) {
                   key={item.id}
                   onClick={() => setCurrentView(item.id)}
                   style={{
-                    padding: '6px 12px',
+                    padding: '6px 10px',
                     borderRadius: 'var(--radius-sm)',
                     border: 'none',
                     backgroundColor: isActive ? 'var(--color-surface-raised)' : 'transparent',
                     color: isActive ? 'var(--color-primary)' : 'var(--color-text-muted)',
                     fontWeight: isActive ? 700 : 500,
-                    fontSize: '0.8125rem',
+                    fontSize: '0.78125rem',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '6px',
+                    gap: '5px',
                     whiteSpace: 'nowrap',
                     transition: 'all 0.15s ease',
                   }}
@@ -177,25 +253,24 @@ export default function Navbar({ onOpenThemeModal }) {
         )}
 
         {/* Right Actions: Role Selector, Color Customizer, Dark Toggle */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           {/* Multi-Role Switcher Dropdown */}
           <div style={{ position: 'relative' }}>
             <button
               onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
               className="btn-secondary"
               style={{
-                fontSize: '0.78125rem',
-                padding: '6px 12px',
+                fontSize: '0.75rem',
+                padding: '5px 10px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
                 borderRadius: 'var(--radius-full)',
               }}
-              title="Switch user role: Owner, Front Desk, Trainer, Member"
             >
               <span>{roles.find(r => r.id === activeRole)?.icon}</span>
-              <span className="desktop-only">{roles.find(r => r.id === activeRole)?.label}</span>
-              <ChevronDown size={13} />
+              <span className="desktop-only">{roles.find(r => r.id === activeRole)?.label.split(' ')[0]}</span>
+              <ChevronDown size={12} />
             </button>
 
             {roleDropdownOpen && (
@@ -205,7 +280,7 @@ export default function Navbar({ onOpenThemeModal }) {
                   position: 'absolute',
                   top: '110%',
                   right: 0,
-                  width: '230px',
+                  width: '240px',
                   padding: '6px',
                   backgroundColor: 'var(--color-surface)',
                   border: '1px solid var(--color-border-strong)',
@@ -213,7 +288,7 @@ export default function Navbar({ onOpenThemeModal }) {
                   zIndex: 60,
                 }}
               >
-                <div style={{ padding: '6px 10px', fontSize: '0.6875rem', fontWeight: 700, color: 'var(--color-text-faint)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <div style={{ padding: '6px 10px', fontSize: '0.6875rem', fontWeight: 700, color: 'var(--color-text-faint)', textTransform: 'uppercase' }}>
                   Switch Active Portal Role
                 </div>
                 {roles.map((r) => (
@@ -251,11 +326,11 @@ export default function Navbar({ onOpenThemeModal }) {
             )}
           </div>
 
-          {/* Theme Palette Customizer Button (Volt/Cyan/Rose/Picker) */}
+          {/* Theme Customizer Button */}
           <button
             onClick={onOpenThemeModal}
             style={{
-              padding: '7px 12px',
+              padding: '6px 10px',
               borderRadius: 'var(--radius-full)',
               border: '1px solid var(--color-border)',
               backgroundColor: 'var(--color-surface-raised)',
@@ -264,40 +339,38 @@ export default function Navbar({ onOpenThemeModal }) {
               gap: '6px',
               cursor: 'pointer',
               color: 'var(--color-text)',
-              fontSize: '0.8125rem',
+              fontSize: '0.75rem',
               fontWeight: 600,
               boxShadow: '0 0 15px -3px var(--color-primary-glow)',
             }}
-            title="Custom Theme & Color Presets"
           >
             <span style={{
-              width: '12px',
-              height: '12px',
+              width: '11px',
+              height: '11px',
               borderRadius: '50%',
               backgroundColor: primaryColor,
               boxShadow: `0 0 8px ${primaryColor}`,
             }}></span>
-            <Palette size={15} color="var(--color-primary)" />
-            <span className="desktop-only" style={{ fontSize: '0.75rem' }}>Theme</span>
+            <Palette size={14} color="var(--color-primary)" />
+            <span className="desktop-only">Theme</span>
           </button>
 
           {/* Dark / Light Toggle */}
           <button
             onClick={toggleMode}
             className="btn-ghost"
-            style={{ padding: '8px', borderRadius: '50%' }}
-            title={`Switch to ${mode === 'dark' ? 'Light' : 'Dark'} Mode`}
+            style={{ padding: '7px', borderRadius: '50%' }}
           >
-            {mode === 'dark' ? <Sun size={17} color="var(--color-primary)" /> : <Moon size={17} />}
+            {mode === 'dark' ? <Sun size={16} color="var(--color-primary)" /> : <Moon size={16} />}
           </button>
 
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="mobile-only btn-ghost"
-            style={{ padding: '8px' }}
+            style={{ padding: '6px' }}
           >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
@@ -316,30 +389,8 @@ export default function Navbar({ onOpenThemeModal }) {
           borderTop: '1px solid var(--color-border)',
         }}>
           <div style={{ marginBottom: '16px' }}>
-            <p style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-faint)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
-              Public Views
-            </p>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-              <button
-                onClick={() => { setCurrentView('landing'); setMobileMenuOpen(false); }}
-                className="btn-secondary"
-                style={{ fontSize: '0.8125rem', padding: '10px' }}
-              >
-                Marketing Home
-              </button>
-              <button
-                onClick={() => { setCurrentView('deck'); setMobileMenuOpen(false); }}
-                className="btn-secondary"
-                style={{ fontSize: '0.8125rem', padding: '10px' }}
-              >
-                22-Slide Deck
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <p style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-faint)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
-              Gym Management Modules
+            <p style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-faint)', textTransform: 'uppercase', marginBottom: '8px' }}>
+              Select Modules
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               {appNavItems.map((item) => {
@@ -359,11 +410,18 @@ export default function Navbar({ onOpenThemeModal }) {
                       fontWeight: 700,
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '10px',
+                      justifyContent: 'space-between',
                     }}
                   >
-                    <Icon size={18} />
-                    {item.label}
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <Icon size={18} />
+                      {item.label}
+                    </span>
+                    {item.badge && (
+                      <span className="badge badge-primary" style={{ fontSize: '0.6875rem' }}>
+                        {item.badge}
+                      </span>
+                    )}
                   </button>
                 );
               })}

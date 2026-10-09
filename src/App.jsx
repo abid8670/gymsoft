@@ -9,6 +9,10 @@ import DeckViewer from './components/DeckViewer';
 import DashboardView from './components/DashboardView';
 import MembersView from './components/MembersView';
 import CheckInTerminal from './components/CheckInTerminal';
+import AppointmentsView from './components/AppointmentsView';
+import RetailPosView from './components/RetailPosView';
+import StaffCommissionsView from './components/StaffCommissionsView';
+import ClientCardsView from './components/ClientCardsView';
 import InvoicesView from './components/InvoicesView';
 import WhatsAppAutomationView from './components/WhatsAppAutomationView';
 import GymWebsiteView from './components/GymWebsiteView';
@@ -19,8 +23,8 @@ import ExportCenterView from './components/ExportCenterView';
 
 import { 
   LayoutDashboard, Users, CalendarCheck, Receipt, MessageSquare, 
-  Globe, Building2, DollarSign, FileText, Download, ShieldAlert,
-  ArrowRight, Sparkles 
+  Globe, Building2, DollarSign, FileText, Download, Scissors, 
+  ShoppingBag, Award, Sparkles 
 } from 'lucide-react';
 
 function MainAppContent() {
@@ -54,6 +58,14 @@ function MainAppContent() {
             onOpenCheckIn={() => setCurrentView('checkin')}
           />
         );
+      case 'appointments':
+        return <AppointmentsView />;
+      case 'retailpos':
+        return <RetailPosView />;
+      case 'commissions':
+        return <StaffCommissionsView />;
+      case 'clientcards':
+        return <ClientCardsView />;
       case 'members':
         return (
           <MembersView 
@@ -81,7 +93,13 @@ function MainAppContent() {
       case 'export':
         return <ExportCenterView />;
       default:
-        return <DashboardView onNavigate={(view) => setCurrentView(view)} onOpenAddMember={() => setAddMemberOpen(true)} onOpenCheckIn={() => setCurrentView('checkin')} />;
+        return (
+          <DashboardView 
+            onNavigate={(view) => setCurrentView(view)} 
+            onOpenAddMember={() => setAddMemberOpen(true)} 
+            onOpenCheckIn={() => setCurrentView('checkin')} 
+          />
+        );
     }
   };
 
@@ -90,7 +108,7 @@ function MainAppContent() {
       {/* Navbar */}
       <Navbar onOpenThemeModal={() => setThemeModalOpen(true)} />
 
-      {/* Role Notice Banner (if testing another role like Front Desk or Trainer) */}
+      {/* Role Notice Banner */}
       {activeRole !== 'owner' && (
         <div style={{
           backgroundColor: 'var(--color-primary-light)',
@@ -104,7 +122,7 @@ function MainAppContent() {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontWeight: 800 }}>Role Simulation:</span>
-            <span>You are viewing GymSoft as <strong>{activeRole.toUpperCase()}</strong>.</span>
+            <span>You are viewing ZenithSoft as <strong>{activeRole.toUpperCase()}</strong>.</span>
           </div>
           <button
             onClick={() => setActiveRole('owner')}
@@ -117,7 +135,7 @@ function MainAppContent() {
               textDecoration: 'underline',
             }}
           >
-            Switch back to Gym Owner
+            Switch back to Owner
           </button>
         </div>
       )}
@@ -145,10 +163,10 @@ function MainAppContent() {
         }}>
           {[
             { id: 'dashboard', label: 'Home', icon: LayoutDashboard },
-            { id: 'members', label: 'Members', icon: Users },
+            { id: 'appointments', label: 'Salon', icon: Scissors },
+            { id: 'retailpos', label: 'POS', icon: ShoppingBag },
             { id: 'checkin', label: 'Check-In', icon: CalendarCheck },
-            { id: 'invoices', label: 'Invoices', icon: Receipt },
-            { id: 'whatsapp', label: 'WhatsApp', icon: MessageSquare },
+            { id: 'invoices', label: 'Billing', icon: Receipt },
           ].map(tab => {
             const Icon = tab.icon;
             const isActive = currentView === tab.id;
@@ -200,9 +218,9 @@ function MainAppContent() {
         <div className="container-wide" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontWeight: 800, color: 'var(--color-text)', fontFamily: 'var(--font-display)' }}>
-              Gym<span style={{ color: 'var(--color-primary)' }}>Management</span>Soft
+              Zenith<span style={{ color: 'var(--color-primary)' }}>Soft</span>
             </span>
-            <span>· Cloud gym management platform on autopilot</span>
+            <span>· All-in-One Operating System for Fitness Gyms, Beauty Salons & Spas</span>
           </div>
 
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
@@ -216,7 +234,7 @@ function MainAppContent() {
               onClick={() => setCurrentView('directory')} 
               style={{ cursor: 'pointer', color: 'var(--color-text-muted)' }}
             >
-              Gyms Directory
+              Wellness Directory
             </span>
             <button
               onClick={() => setThemeModalOpen(true)}
@@ -229,7 +247,7 @@ function MainAppContent() {
                 fontSize: '0.8125rem',
               }}
             >
-              Color Themes & Branding
+              Theme & Branding
             </button>
           </div>
         </div>

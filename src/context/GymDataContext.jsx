@@ -18,8 +18,8 @@ export const INITIAL_MEMBERS = [
     phone: '+92 321 8847120',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
     planId: 'p2',
-    planName: 'Gold VIP Plan',
-    price: 65,
+    planName: 'Glow & Gains VIP (Hybrid)',
+    price: 85,
     status: 'active',
     joinDate: '2026-01-15',
     expiryDate: '2026-11-01',
@@ -27,8 +27,11 @@ export const INITIAL_MEMBERS = [
     totalVisits: 142,
     avgVisitMinutes: 72,
     trainerName: 'Farhan Ali (Pro PT)',
+    favoriteStylist: 'Natasha (Master Stylist)',
+    hairFormula: 'L\'Oréal Inoa 6.1 Ash Light Brown (No Ammonia)',
+    skinType: 'Combination / Sensitive (Avoid Glycolic)',
     lastCheckIn: 'Today, 08:30 AM',
-    notes: 'Pre-wedding transformation. Focus on HIIT & glutes.',
+    notes: 'Bride-to-be workout + monthly HydraFacial & Hair Spa.',
   },
   {
     id: 'm2',
@@ -37,7 +40,7 @@ export const INITIAL_MEMBERS = [
     phone: '+92 300 4567891',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
     planId: 'p1',
-    planName: 'Standard Fitness',
+    planName: 'Standard Fitness Pass',
     price: 40,
     status: 'active',
     joinDate: '2026-03-10',
@@ -46,8 +49,11 @@ export const INITIAL_MEMBERS = [
     totalVisits: 98,
     avgVisitMinutes: 65,
     trainerName: 'Self-guided',
+    favoriteStylist: 'Kashif (Beard & Fade)',
+    hairFormula: 'Natural fade, charcoal detox scalp scrub',
+    skinType: 'Normal',
     lastCheckIn: 'Today, 07:15 AM',
-    notes: 'Powerlifting bench focus. Always arrives early.',
+    notes: 'Powerlifting bench focus. Regular weekend beard grooming.',
   },
   {
     id: 'm3',
@@ -56,8 +62,8 @@ export const INITIAL_MEMBERS = [
     phone: '+92 333 9123456',
     avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80',
     planId: 'p3',
-    planName: 'Cardio & Crossfit',
-    price: 50,
+    planName: 'Luxury Spa & Pilates Club',
+    price: 70,
     status: 'expiring',
     joinDate: '2026-02-01',
     expiryDate: '2026-10-12',
@@ -65,6 +71,9 @@ export const INITIAL_MEMBERS = [
     totalVisits: 64,
     avgVisitMinutes: 55,
     trainerName: 'Zainab Noor',
+    favoriteStylist: 'Natasha (Master Stylist)',
+    hairFormula: 'Balayage Blonde toner 9.21 + Olaplex No. 2',
+    skinType: 'Dry / Dehydrated (HydraFacial monthly)',
     lastCheckIn: 'Yesterday, 06:40 PM',
     notes: 'Membership expires in 3 days. WhatsApp reminder sent.',
   },
@@ -75,8 +84,8 @@ export const INITIAL_MEMBERS = [
     phone: '+92 312 7789012',
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
     planId: 'p4',
-    planName: 'Personal Training 1-on-1',
-    price: 120,
+    planName: 'Executive PT & Recovery Spa',
+    price: 150,
     status: 'active',
     joinDate: '2026-05-20',
     expiryDate: '2026-11-20',
@@ -84,8 +93,11 @@ export const INITIAL_MEMBERS = [
     totalVisits: 110,
     avgVisitMinutes: 85,
     trainerName: 'Farhan Ali (Pro PT)',
+    favoriteStylist: 'David (Sports Masseuse)',
+    hairFormula: 'Short taper fade',
+    skinType: 'Normal',
     lastCheckIn: 'Today, 09:10 AM',
-    notes: 'Post-ACL recovery protocol. Careful on leg extensions.',
+    notes: 'Post-ACL recovery + bi-weekly deep tissue sports massage.',
   },
   {
     id: 'm5',
@@ -94,8 +106,8 @@ export const INITIAL_MEMBERS = [
     phone: '+92 345 6123987',
     avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80',
     planId: 'p2',
-    planName: 'Gold VIP Plan',
-    price: 65,
+    planName: 'Glow & Gains VIP (Hybrid)',
+    price: 85,
     status: 'expired',
     joinDate: '2025-11-10',
     expiryDate: '2026-10-01',
@@ -103,8 +115,11 @@ export const INITIAL_MEMBERS = [
     totalVisits: 88,
     avgVisitMinutes: 60,
     trainerName: 'Zainab Noor',
+    favoriteStylist: 'Natasha (Master Stylist)',
+    hairFormula: 'Keratin protein treatment',
+    skinType: 'Sensitive',
     lastCheckIn: '7 days ago',
-    notes: 'Travelled abroad. Said will renew once back.',
+    notes: 'Travelled abroad. Promised to renew once back.',
   },
   {
     id: 'm6',
@@ -113,7 +128,7 @@ export const INITIAL_MEMBERS = [
     phone: '+92 301 2345678',
     avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&auto=format&fit=crop&q=80',
     planId: 'p1',
-    planName: 'Standard Fitness',
+    planName: 'Standard Fitness Pass',
     price: 40,
     status: 'active',
     joinDate: '2026-06-01',
@@ -122,6 +137,9 @@ export const INITIAL_MEMBERS = [
     totalVisits: 52,
     avgVisitMinutes: 70,
     trainerName: 'Self-guided',
+    favoriteStylist: 'Kashif (Beard & Fade)',
+    hairFormula: 'Classic pompadour cut',
+    skinType: 'Oily',
     lastCheckIn: 'Today, 10:00 AM',
     notes: 'Regular morning athlete.',
   },
@@ -130,47 +148,271 @@ export const INITIAL_MEMBERS = [
 export const INITIAL_PLANS = [
   {
     id: 'p1',
-    name: 'Standard Fitness',
+    name: 'Standard Fitness Pass',
     price: 40,
     billingCycle: 'Monthly',
-    durationMonths: 1,
+    category: 'Fitness',
     description: 'Full gym floor access, cardio zone, lockers & shower facilities.',
-    features: ['All Weights & Machines', 'Cardio Floor', 'Locker Room & Showers', 'Member Mobile App', '1-Tap Check-In'],
+    features: ['All Weights & Cardio', 'Locker Room & Showers', 'Member App Heatmap', '1-Tap Check-In'],
     activeMembers: 114,
     badge: 'Popular',
   },
   {
     id: 'p2',
-    name: 'Gold VIP Plan',
-    price: 65,
+    name: 'Glow & Gains VIP (Hybrid)',
+    price: 85,
     billingCycle: 'Monthly',
-    durationMonths: 1,
-    description: 'Premium access with sauna, group classes and nutrition guidance.',
-    features: ['All Standard Features', 'Sauna & Steam Bath', 'Unlimited Group Classes', 'Nutrition Consultation', 'Priority Locker'],
+    category: 'Hybrid',
+    description: 'The ultimate combo: Unlimited Gym + 2 Salon Blowdrys + 1 HydraFacial per month.',
+    features: ['Unlimited Gym & Cardio Access', '2x Monthly Salon Blowdry / Styling', '1x HydraFacial Glow Session', 'Sauna, Steam & Towel Service', '10% Retail Product Discount'],
     activeMembers: 86,
     badge: 'Best Value',
   },
   {
     id: 'p3',
-    name: 'Cardio & Crossfit',
-    price: 50,
+    name: 'Luxury Spa & Pilates Club',
+    price: 70,
     billingCycle: 'Monthly',
-    durationMonths: 1,
-    description: 'High-intensity functional training area and cardio stadium.',
-    features: ['Functional Rig & Kettlebells', 'Rowers & Ski-Ergs', 'Daily WOD Access', 'Recovery Zone', 'Member App Heatmap'],
+    category: 'Beauty/Spa',
+    description: 'Unlimited Pilates & Yoga classes + 2 Spa Massage sessions every month.',
+    features: ['Unlimited Reformer Pilates & Yoga', '2x Deep Tissue / Swedish Massages', 'Steam & Moroccan Bath Pass', 'Detox Herbal Teas Lounge', 'VIP Changing Suites'],
     activeMembers: 32,
-    badge: null,
+    badge: 'Wellness',
   },
   {
     id: 'p4',
-    name: 'Personal Training 1-on-1',
-    price: 120,
+    name: 'Executive PT & Recovery Spa',
+    price: 150,
     billingCycle: 'Monthly',
-    durationMonths: 1,
-    description: 'Dedicated certified trainer, bespoke routine, and weekly body composition scans.',
-    features: ['Dedicated Elite Coach', 'Custom Diet & Workout Blueprint', 'InBody 570 Scans Bi-weekly', 'VIP Locker & Towel Service', 'Direct Trainer WhatsApp Chat'],
+    category: 'Hybrid',
+    description: 'Dedicated certified personal coach + weekly recovery sports massages & grooming.',
+    features: ['Dedicated Elite Coach (12 PT Sessions)', 'Weekly Sports Physiotherapy Massage', 'VIP Grooming / Beard / Hair Care', 'InBody 570 Scans Bi-weekly', 'Direct WhatsApp Concierge'],
     activeMembers: 16,
-    badge: 'Elite',
+    badge: 'Elite Tier',
+  },
+];
+
+export const SALON_SERVICES = [
+  {
+    id: 'srv-1',
+    name: 'HydraFacial Deluxe Glow',
+    category: 'Skin & Aesthetics',
+    price: 60,
+    durationMinutes: 50,
+    stylist: 'Dr. Hina (Skin Specialist)',
+    description: 'Deep cleansing, gentle chemical peel, painless blackhead extraction and intense hyaluronic acid hydration.',
+    commissionRate: 0.25,
+  },
+  {
+    id: 'srv-2',
+    name: 'Signature Blowdry & Olaplex Spa',
+    category: 'Hair Care & Styling',
+    price: 35,
+    durationMinutes: 45,
+    stylist: 'Natasha (Master Stylist)',
+    description: 'Bond-building Olaplex wash treatment followed by runway-grade voluminous blowdry styling.',
+    commissionRate: 0.20,
+  },
+  {
+    id: 'srv-3',
+    name: 'Deep Tissue Sports Recovery Massage',
+    category: 'Massage & Spa',
+    price: 55,
+    durationMinutes: 60,
+    stylist: 'David (Therapist & Physio)',
+    description: 'Relieves chronic muscle tightness, lactic acid accumulation, and accelerates post-workout recovery.',
+    commissionRate: 0.30,
+  },
+  {
+    id: 'srv-4',
+    name: 'Executive Haircut & Beard Sculpting',
+    category: 'Men\'s Grooming',
+    price: 30,
+    durationMinutes: 40,
+    stylist: 'Kashif (Beard & Fade)',
+    description: 'Precision scissor cut, hot towel steam shave, and charcoal face scrub.',
+    commissionRate: 0.20,
+  },
+  {
+    id: 'srv-5',
+    name: 'Luxury Detox Gel Manicure & Pedicure',
+    category: 'Nails & Hands',
+    price: 45,
+    durationMinutes: 60,
+    stylist: 'Amina (Nail Artist)',
+    description: 'Exfoliating Dead Sea salt scrub, cuticle therapy, paraffin wax dip and chip-resistant gel polish.',
+    commissionRate: 0.25,
+  },
+  {
+    id: 'srv-6',
+    name: 'Moroccan Bath (Hammam Exfoliation)',
+    category: 'Massage & Spa',
+    price: 75,
+    durationMinutes: 75,
+    stylist: 'David (Therapist & Physio)',
+    description: 'Traditional steam bath, black soap application, Kessa glove exfoliation and purifying rhassoul clay wrap.',
+    commissionRate: 0.30,
+  },
+];
+
+export const INITIAL_APPOINTMENTS = [
+  {
+    id: 'apt-1',
+    memberName: 'Ayesha Malik',
+    memberPhone: '+92 321 8847120',
+    serviceId: 'srv-1',
+    serviceName: 'HydraFacial Deluxe Glow',
+    stylist: 'Dr. Hina (Skin Specialist)',
+    date: 'Today',
+    time: '03:00 PM',
+    price: 60,
+    status: 'Confirmed', // 'Confirmed' | 'In Chair' | 'Completed' | 'Cancelled'
+    whatsappReminderSent: true,
+  },
+  {
+    id: 'apt-2',
+    memberName: 'Sara Khan',
+    memberPhone: '+92 333 9123456',
+    serviceId: 'srv-2',
+    serviceName: 'Signature Blowdry & Olaplex Spa',
+    stylist: 'Natasha (Master Stylist)',
+    date: 'Today',
+    time: '04:30 PM',
+    price: 35,
+    status: 'In Chair',
+    whatsappReminderSent: true,
+  },
+  {
+    id: 'apt-3',
+    memberName: 'Usman Tariq',
+    memberPhone: '+92 312 7789012',
+    serviceId: 'srv-3',
+    serviceName: 'Deep Tissue Sports Recovery Massage',
+    stylist: 'David (Therapist & Physio)',
+    date: 'Today',
+    time: '06:00 PM',
+    price: 55,
+    status: 'Confirmed',
+    whatsappReminderSent: true,
+  },
+  {
+    id: 'apt-4',
+    memberName: 'Bilal Ahmed',
+    memberPhone: '+92 300 4567891',
+    serviceId: 'srv-4',
+    serviceName: 'Executive Haircut & Beard Sculpting',
+    stylist: 'Kashif (Beard & Fade)',
+    date: 'Tomorrow',
+    time: '11:00 AM',
+    price: 30,
+    status: 'Confirmed',
+    whatsappReminderSent: false,
+  },
+];
+
+export const RETAIL_PRODUCTS = [
+  {
+    id: 'prd-1',
+    name: '100% Pure Whey Isolate (2kg)',
+    category: 'Fitness Nutrition',
+    price: 65,
+    cost: 42,
+    stock: 24,
+    sku: 'WHEY-ISO-2K',
+    image: 'https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?w=200&auto=format&fit=crop&q=80',
+  },
+  {
+    id: 'prd-2',
+    name: 'Moroccan Argan Hair Elixir (100ml)',
+    category: 'Salon Haircare',
+    price: 32,
+    cost: 16,
+    stock: 38,
+    sku: 'ARGAN-ELX-100',
+    image: 'https://images.unsplash.com/photo-1608248597359-00994f31c260?w=200&auto=format&fit=crop&q=80',
+  },
+  {
+    id: 'prd-3',
+    name: 'Pre-Workout Nitro Blast (30 Servings)',
+    category: 'Fitness Nutrition',
+    price: 45,
+    cost: 26,
+    stock: 19,
+    sku: 'PRE-NITRO-30',
+    image: 'https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=200&auto=format&fit=crop&q=80',
+  },
+  {
+    id: 'prd-4',
+    name: 'Vitamin C + Hyaluronic Glow Serum (50ml)',
+    category: 'Skincare',
+    price: 38,
+    cost: 18,
+    stock: 42,
+    sku: 'VITC-GLOW-50',
+    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&auto=format&fit=crop&q=80',
+  },
+  {
+    id: 'prd-5',
+    name: 'Keratin Deep Repair Hair Mask (250ml)',
+    category: 'Salon Haircare',
+    price: 28,
+    cost: 12,
+    stock: 31,
+    sku: 'KER-MASK-250',
+    image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&auto=format&fit=crop&q=80',
+  },
+  {
+    id: 'prd-6',
+    name: 'Heavy Duty Stainless Steel Gym Shaker',
+    category: 'Accessories',
+    price: 18,
+    cost: 8,
+    stock: 55,
+    sku: 'SHAKER-STEEL',
+    image: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=200&auto=format&fit=crop&q=80',
+  },
+];
+
+export const INITIAL_STAFF = [
+  {
+    id: 'st-1',
+    name: 'Natasha (Master Stylist)',
+    role: 'Salon Hairstylist',
+    baseSalary: 600,
+    commissionRate: '20% Services',
+    servicesCompletedThisMonth: 42,
+    commissionEarned: 294,
+    rating: 4.9,
+  },
+  {
+    id: 'st-2',
+    name: 'Farhan Ali (Pro PT)',
+    role: 'Head Fitness Coach',
+    baseSalary: 750,
+    commissionRate: '$25 / PT Session',
+    servicesCompletedThisMonth: 34,
+    commissionEarned: 850,
+    rating: 4.9,
+  },
+  {
+    id: 'st-3',
+    name: 'Dr. Hina (Skin Specialist)',
+    role: 'Aesthetician / HydraFacial',
+    baseSalary: 650,
+    commissionRate: '25% Services',
+    servicesCompletedThisMonth: 38,
+    commissionEarned: 570,
+    rating: 5.0,
+  },
+  {
+    id: 'st-4',
+    name: 'David (Therapist & Physio)',
+    role: 'Sports & Spa Masseur',
+    baseSalary: 550,
+    commissionRate: '30% Services',
+    servicesCompletedThisMonth: 28,
+    commissionEarned: 462,
+    rating: 4.8,
   },
 ];
 
@@ -182,8 +424,8 @@ export const INITIAL_INVOICES = [
     memberName: 'Ayesha Malik',
     memberEmail: 'ayesha.m@gmail.com',
     memberPhone: '+92 321 8847120',
-    planName: 'Gold VIP Plan',
-    amount: 65,
+    planName: 'Glow & Gains VIP (Hybrid)',
+    amount: 85,
     status: 'Paid',
     issueDate: '2026-10-01',
     dueDate: '2026-10-05',
@@ -198,7 +440,7 @@ export const INITIAL_INVOICES = [
     memberName: 'Bilal Ahmed',
     memberEmail: 'bilal.ahmed99@outlook.com',
     memberPhone: '+92 300 4567891',
-    planName: 'Standard Fitness',
+    planName: 'Standard Fitness Pass',
     amount: 40,
     status: 'Paid',
     issueDate: '2026-09-28',
@@ -214,8 +456,8 @@ export const INITIAL_INVOICES = [
     memberName: 'Sara Khan',
     memberEmail: 'sara.k.design@gmail.com',
     memberPhone: '+92 333 9123456',
-    planName: 'Cardio & Crossfit',
-    amount: 50,
+    planName: 'Luxury Spa & Pilates Club',
+    amount: 70,
     status: 'Unpaid',
     issueDate: '2026-10-05',
     dueDate: '2026-10-12',
@@ -230,8 +472,8 @@ export const INITIAL_INVOICES = [
     memberName: 'Usman Tariq',
     memberEmail: 'usman.tariq@yahoo.com',
     memberPhone: '+92 312 7789012',
-    planName: 'Personal Training 1-on-1',
-    amount: 120,
+    planName: 'Executive PT & Recovery Spa',
+    amount: 150,
     status: 'Paid',
     issueDate: '2026-09-20',
     dueDate: '2026-09-25',
@@ -246,8 +488,8 @@ export const INITIAL_INVOICES = [
     memberName: 'Zainab Noor',
     memberEmail: 'zainab.noor@gmail.com',
     memberPhone: '+92 345 6123987',
-    planName: 'Gold VIP Plan',
-    amount: 65,
+    planName: 'Glow & Gains VIP (Hybrid)',
+    amount: 85,
     status: 'Unpaid',
     issueDate: '2026-09-25',
     dueDate: '2026-10-01',
@@ -262,7 +504,7 @@ export const INITIAL_INVOICES = [
     memberName: 'Hamza Sheikh',
     memberEmail: 'hamza.sheikh@hotmail.com',
     memberPhone: '+92 301 2345678',
-    planName: 'Standard Fitness',
+    planName: 'Standard Fitness Pass',
     amount: 40,
     status: 'Paid',
     issueDate: '2026-10-01',
@@ -274,126 +516,104 @@ export const INITIAL_INVOICES = [
 ];
 
 export const INITIAL_CHECKINS = [
-  { id: 'c1', memberName: 'Hamza Sheikh', time: '10:00 AM', plan: 'Standard Fitness', method: 'Terminal QR', duration: '54m' },
-  { id: 'c2', memberName: 'Usman Tariq', time: '09:10 AM', plan: 'Personal Training 1-on-1', method: 'App 1-Tap', duration: '85m' },
-  { id: 'c3', memberName: 'Ayesha Malik', time: '08:30 AM', plan: 'Gold VIP Plan', method: 'App 1-Tap', duration: '72m' },
-  { id: 'c4', memberName: 'Bilal Ahmed', time: '07:15 AM', plan: 'Standard Fitness', method: 'Manual Counter', duration: '65m' },
-  { id: 'c5', memberName: 'Omer Farooq', time: '06:45 AM', plan: 'Standard Fitness', method: 'Terminal QR', duration: '60m' },
+  { id: 'c1', memberName: 'Hamza Sheikh', time: '10:00 AM', plan: 'Fitness Floor', type: 'workout', method: 'Terminal QR', duration: '54m' },
+  { id: 'c2', memberName: 'Sara Khan', time: '09:45 AM', plan: 'Signature Blowdry & Olaplex', type: 'salon', method: 'Salon Chair 2', duration: '45m' },
+  { id: 'c3', memberName: 'Usman Tariq', time: '09:10 AM', plan: 'Executive PT & Recovery Spa', type: 'hybrid', method: 'App 1-Tap', duration: '85m' },
+  { id: 'c4', memberName: 'Ayesha Malik', time: '08:30 AM', plan: 'Glow & Gains VIP', type: 'hybrid', method: 'App 1-Tap', duration: '72m' },
+  { id: 'c5', memberName: 'Bilal Ahmed', time: '07:15 AM', plan: 'Standard Fitness Pass', type: 'workout', method: 'Manual Counter', duration: '65m' },
 ];
 
 export const INITIAL_EXPENSES = [
-  { id: 'e1', title: 'Facility Rent (Gulberg III)', category: 'Rent', amount: 2800, date: '2026-10-01', status: 'Paid' },
+  { id: 'e1', title: 'Main Facility & Salon Floor Rent', category: 'Rent', amount: 2800, date: '2026-10-01', status: 'Paid' },
   { id: 'e2', title: 'Commercial Electricity & ACs (LESCO)', category: 'Utilities', amount: 1150, date: '2026-10-04', status: 'Paid' },
-  { id: 'e3', title: 'Trainer Commissions & Retainers', category: 'Salaries', amount: 1900, date: '2026-10-05', status: 'Paid' },
-  { id: 'e4', title: 'Dumbbells & Cable Machine Maintenance', category: 'Maintenance', amount: 320, date: '2026-10-06', status: 'Paid' },
-  { id: 'e5', title: 'Bottled Water & Towel Laundromat', category: 'Operations', amount: 180, date: '2026-10-08', status: 'Paid' },
+  { id: 'e3', title: 'Trainer & Stylist Base Payroll + Commission', category: 'Salaries', amount: 2550, date: '2026-10-05', status: 'Paid' },
+  { id: 'e4', title: 'Salon Hair Colors & HydraFacial Serums Restock', category: 'Inventory', amount: 540, date: '2026-10-06', status: 'Paid' },
+  { id: 'e5', title: 'Laundry, Spa Towels & Essential Oils', category: 'Operations', amount: 210, date: '2026-10-08', status: 'Paid' },
 ];
 
 export const INITIAL_LOGS = [
-  { id: 'l1', type: 'checkin', title: 'Member Checked In', detail: 'Hamza Sheikh tapped check-in at Reception Terminal', time: '10:00 AM Today', actor: 'Hamza Sheikh' },
-  { id: 'l2', type: 'payment', title: 'Invoice #INV-1048 Paid', detail: 'Received $65 from Ayesha Malik via Bank Transfer', time: '09:30 AM Today', actor: 'Front Desk' },
-  { id: 'l3', type: 'reminder', title: 'WhatsApp Reminder Dispatched', detail: 'Sent 3-day renewal notice to Sara Khan (+92 333 9123456)', time: '08:00 AM Today', actor: 'System Autopilot' },
-  { id: 'l4', type: 'checkin', title: 'Member Checked In', detail: 'Usman Tariq checked in via Member App', time: '09:10 AM Today', actor: 'Usman Tariq' },
-  { id: 'l5', type: 'member_new', title: 'New Member Registered', detail: 'Hamza Sheikh enrolled into Standard Fitness', time: 'Yesterday', actor: 'Front Desk' },
-  { id: 'l6', type: 'domain_linked', title: 'Domain Verification Verified', detail: 'ironparadise.fit SSL certificate installed and active', time: '2 days ago', actor: 'System' },
+  { id: 'l1', type: 'checkin', title: 'Salon Service Started', detail: 'Sara Khan started Signature Blowdry with Natasha in Chair 2', time: '09:45 AM Today', actor: 'Salon Reception' },
+  { id: 'l2', type: 'checkin', title: 'Gym Floor Check-In', detail: 'Hamza Sheikh tapped check-in at Reception Terminal', time: '10:00 AM Today', actor: 'Hamza Sheikh' },
+  { id: 'l3', type: 'pos', title: 'Retail Product Sold', detail: 'Sold 1x Moroccan Argan Hair Elixir ($32) to Ayesha Malik', time: '09:15 AM Today', actor: 'Front Desk POS' },
+  { id: 'l4', type: 'payment', title: 'Invoice #INV-1048 Paid', detail: 'Received $85 from Ayesha Malik for Glow & Gains VIP', time: '08:30 AM Today', actor: 'Front Desk' },
+  { id: 'l5', type: 'reminder', title: 'WhatsApp Appointment Alert Dispatched', detail: 'Sent 2-hr booking reminder for HydraFacial to Ayesha Malik', time: '08:00 AM Today', actor: 'WhatsApp Autopilot' },
 ];
 
 export const PUBLIC_GYMS = [
   {
     id: 'g1',
-    name: 'Iron Paradise Fitness & SPA',
+    name: 'Zenith Wellness, Salon & Athletic Club',
     city: 'Lahore',
     location: 'Gulberg III, Main Boulevard',
     rating: 4.9,
-    reviews: 184,
+    reviews: 210,
     monthlyStarting: 40,
-    tags: ['CrossFit', 'Sauna', 'Personal Training', 'Ladies Hours'],
+    tags: ['Hybrid Club', 'Hair Salon', 'CrossFit', 'HydraFacial', 'Sauna'],
     image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&auto=format&fit=crop&q=80',
     verified: true,
-    website: 'https://ironparadise.fit',
+    website: 'https://zenithwellness.fit',
   },
   {
     id: 'g2',
-    name: 'Alpha Athletic Club',
+    name: 'Luxe Beauty Lounge & Pilates Studio',
     city: 'Karachi',
     location: 'Clifton Block 4',
-    rating: 4.8,
-    reviews: 215,
-    monthlyStarting: 50,
-    tags: ['Olympic Lifting', 'MMA Cage', 'Steam Room'],
+    rating: 4.9,
+    reviews: 245,
+    monthlyStarting: 55,
+    tags: ['Reformer Pilates', 'Bridal Spa', 'Nail Bar', 'Moroccan Bath'],
     image: 'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=500&auto=format&fit=crop&q=80',
     verified: true,
-    website: 'https://alpha-karachi.gymmanagementsoft.com',
+    website: 'https://luxebeautyclub.pk',
   },
   {
     id: 'g3',
-    name: 'Summit Performance Center',
+    name: 'Summit Performance & Sports Recovery Spa',
     city: 'Islamabad',
     location: 'F-7/2, Markaz',
-    rating: 4.9,
-    reviews: 142,
-    monthlyStarting: 55,
-    tags: ['HIIT', 'Physiotherapy', 'Smoothie Bar'],
+    rating: 4.8,
+    reviews: 165,
+    monthlyStarting: 50,
+    tags: ['HIIT Gym', 'Sports Massage', 'Cryotherapy', 'Men Grooming'],
     image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=500&auto=format&fit=crop&q=80',
     verified: true,
-    website: 'https://summitfitness.isb',
+    website: 'https://summitwellness.isb',
   },
   {
     id: 'g4',
-    name: 'Volt Marina Gym & Wellness',
+    name: 'Volt Marina Luxury Gym & Spa',
     city: 'Dubai',
     location: 'Dubai Marina Walk',
     rating: 5.0,
     reviews: 430,
     monthlyStarting: 85,
-    tags: ['24/7 Access', 'Rooftop Pool', 'Cryotherapy'],
+    tags: ['24/7 Access', 'Beauty Salon', 'Cryo Chamber', 'Rooftop Pool'],
     image: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=500&auto=format&fit=crop&q=80',
     verified: true,
     website: 'https://voltgym.ae',
   },
-  {
-    id: 'g5',
-    name: 'Brooklyn Barbell Co.',
-    city: 'New York',
-    location: 'Williamsburg, Brooklyn',
-    rating: 4.9,
-    reviews: 310,
-    monthlyStarting: 70,
-    tags: ['Old School Iron', 'Deadlift Platforms', 'Chalk Allowed'],
-    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500&auto=format&fit=crop&q=80',
-    verified: true,
-    website: 'https://brooklynbarbell.nyc',
-  },
-  {
-    id: 'g6',
-    name: 'Mayfair Athletic Club',
-    city: 'London',
-    location: 'Mayfair, Central London',
-    rating: 4.9,
-    reviews: 198,
-    monthlyStarting: 90,
-    tags: ['Luxury Spa', 'Reformer Pilates', 'Executive Lockers'],
-    image: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=500&auto=format&fit=crop&q=80',
-    verified: true,
-    website: 'https://mayfairathletic.co.uk',
-  },
 ];
 
 export function GymDataProvider({ children }) {
+  // Business Mode: 'hybrid' | 'gym' | 'salon'
+  const [businessMode, setBusinessMode] = useState(() => {
+    return localStorage.getItem('gymsoft_business_mode') || 'hybrid';
+  });
+
   const [gymProfile, setGymProfile] = useState(() => {
     const saved = localStorage.getItem('gymsoft_profile');
     if (saved) {
       try { return JSON.parse(saved); } catch (e) { }
     }
     return {
-      name: 'Iron Paradise Fitness',
-      tagline: 'Premium Strength & Functional Training Facility',
-      slug: 'ironparadise',
-      customDomain: 'ironparadise.fit',
+      name: 'Zenith Glow & Fitness Club',
+      tagline: 'Premier Hybrid Wellness: Fitness Training, Hair & Aesthetics Spa',
+      slug: 'zenithwellness',
+      customDomain: 'zenithwellness.fit',
       address: '14-C Main Boulevard, Gulberg III, Lahore, Pakistan',
       phone: '+92 300 8472910',
       whatsapp: '+923008472910',
-      email: 'owner@ironparadise.fit',
+      email: 'hello@zenithwellness.fit',
       currency: 'USD',
       openingHours: 'Mon - Sat: 06:00 AM - 11:00 PM | Sun: 09:00 AM - 08:00 PM',
       city: 'Lahore',
@@ -408,28 +628,36 @@ export function GymDataProvider({ children }) {
   const [expenses, setExpenses] = useState(INITIAL_EXPENSES);
   const [logs, setLogs] = useState(INITIAL_LOGS);
 
+  // Hybrid Specific State
+  const [appointments, setAppointments] = useState(INITIAL_APPOINTMENTS);
+  const [salonServices, setSalonServices] = useState(SALON_SERVICES);
+  const [retailProducts, setRetailProducts] = useState(RETAIL_PRODUCTS);
+  const [staff, setStaff] = useState(INITIAL_STAFF);
+
   // WhatsApp Automation state
   const [whatsAppConfig, setWhatsAppConfig] = useState({
     isConnected: true,
     linkedNumber: '+92 300 8472910',
-    botName: 'Iron Paradise Bot',
+    botName: 'Zenith Wellness Bot',
     daysBeforeExpiry: 3,
     sendOnInvoiceGenerated: true,
-    sendOnPaymentReceived: true,
-    reminderTemplate: 'Hi {name}! 👋 Your {plan} membership at {gym} expires on {expiry}. Please renew to keep your workout streak alive! Invoice #{invoice} amount is {amount}.',
+    sendOnAppointmentBooked: true,
+    reminderTemplate: 'Hi {name}! 👋 Your {plan} at {gym} expires on {expiry}. Please renew today! Invoice #{invoice} total is {amount}.',
+    appointmentTemplate: 'Hi {name}! 💅 Your appointment for {service} with {stylist} is confirmed for {time}. Reply 1 to confirm, 2 to reschedule.',
   });
 
   // Current view in the SaaS platform
-  // 'landing' | 'deck' | 'dashboard' | 'members' | 'checkin' | 'invoices' | 'whatsapp' | 'website' | 'directory' | 'expenses' | 'logs'
+  // 'landing' | 'deck' | 'dashboard' | 'members' | 'checkin' | 'appointments' | 'retailpos' | 'commissions' | 'invoices' | 'whatsapp' | 'website' | 'directory' | 'expenses' | 'logs' | 'export'
   const [currentView, setCurrentView] = useState('landing');
-
-  // Selected member for member portal preview / edit
   const [currentMemberId, setCurrentMemberId] = useState('m1');
 
-  // Save profile
   useEffect(() => {
     localStorage.setItem('gymsoft_profile', JSON.stringify(gymProfile));
   }, [gymProfile]);
+
+  useEffect(() => {
+    localStorage.setItem('gymsoft_business_mode', businessMode);
+  }, [businessMode]);
 
   const currencyObj = CURRENCIES[gymProfile.currency] || CURRENCIES.USD;
 
@@ -444,14 +672,14 @@ export function GymDataProvider({ children }) {
       joinDate: new Date().toISOString().split('T')[0],
       status: 'active',
       avatar: `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80`,
+      hairFormula: memberData.hairFormula || 'Consultation pending',
+      skinType: memberData.skinType || 'Normal',
       ...memberData,
     };
     setMembers([newMember, ...members]);
 
-    // Create initial invoice
-    const newInvId = `inv-${Math.floor(1000 + Math.random() * 9000)}`;
     const newInvoice = {
-      id: newInvId,
+      id: `inv-${Math.floor(1000 + Math.random() * 9000)}`,
       invoiceNo: `INV-${Math.floor(1000 + Math.random() * 9000)}`,
       memberId: newId,
       memberName: newMember.name,
@@ -467,12 +695,10 @@ export function GymDataProvider({ children }) {
       reminderSent: false,
     };
     setInvoices([newInvoice, ...invoices]);
-
-    // Add log
-    addLog('member_new', 'New Member Joined', `${newMember.name} joined with plan ${newMember.planName}`, 'Front Desk');
+    addLog('member_new', 'New Client Enrolled', `${newMember.name} joined with plan ${newMember.planName}`, 'Front Desk');
   };
 
-  const recordCheckIn = (memberId, method = 'Terminal QR') => {
+  const recordCheckIn = (memberId, method = 'Terminal QR', type = 'workout') => {
     const member = members.find(m => m.id === memberId);
     if (!member) return;
 
@@ -482,12 +708,12 @@ export function GymDataProvider({ children }) {
       memberName: member.name,
       time: `${timeStr} Today`,
       plan: member.planName,
+      type: type, // 'workout' | 'salon' | 'hybrid'
       method: method,
-      duration: '60m',
+      duration: type === 'salon' ? '45m' : '65m',
     };
     setCheckins([newCheckIn, ...checkins]);
 
-    // Update member streak and visits
     setMembers(members.map(m => {
       if (m.id === memberId) {
         return {
@@ -500,7 +726,58 @@ export function GymDataProvider({ children }) {
       return m;
     }));
 
-    addLog('checkin', 'Member Check-In', `${member.name} checked in via ${method}`, member.name);
+    addLog('checkin', type === 'salon' ? 'Salon Client Checked-In' : 'Gym Athlete Checked-In', `${member.name} checked in (${type}) via ${method}`, member.name);
+  };
+
+  const bookAppointment = (appointmentData) => {
+    const newApt = {
+      id: `apt-${Date.now()}`,
+      status: 'Confirmed',
+      whatsappReminderSent: true,
+      ...appointmentData,
+    };
+    setAppointments([newApt, ...appointments]);
+    addLog('appointment', 'Appointment Booked', `${newApt.serviceName} booked for ${newApt.memberName} with ${newApt.stylist} at ${newApt.time}`, 'Reception Desk');
+  };
+
+  const updateAppointmentStatus = (id, newStatus) => {
+    setAppointments(appointments.map(a => a.id === id ? { ...a, status: newStatus } : a));
+    const apt = appointments.find(a => a.id === id);
+    if (apt) {
+      addLog('appointment', `Appointment ${newStatus}`, `${apt.memberName}'s ${apt.serviceName} marked as ${newStatus}`, 'Reception Desk');
+    }
+  };
+
+  const processRetailSale = (cartItems, paymentMethod = 'Cash') => {
+    const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    // Deduct stock
+    setRetailProducts(prev => prev.map(prd => {
+      const inCart = cartItems.find(c => c.id === prd.id);
+      if (inCart) {
+        return { ...prd, stock: Math.max(0, prd.stock - inCart.quantity) };
+      }
+      return prd;
+    }));
+
+    // Record invoice
+    const newInvoice = {
+      id: `pos-${Math.floor(1000 + Math.random() * 9000)}`,
+      invoiceNo: `POS-${Math.floor(1000 + Math.random() * 9000)}`,
+      memberId: 'walk-in',
+      memberName: 'POS Retail Customer',
+      memberEmail: 'retail@zenithwellness.fit',
+      memberPhone: '+92 300 0000000',
+      planName: `Retail POS: ${cartItems.map(c => `${c.quantity}x ${c.name}`).join(', ')}`,
+      amount: total,
+      status: 'Paid',
+      issueDate: new Date().toISOString().split('T')[0],
+      dueDate: new Date().toISOString().split('T')[0],
+      paidDate: new Date().toISOString().split('T')[0],
+      paymentMethod,
+      reminderSent: false,
+    };
+    setInvoices([newInvoice, ...invoices]);
+    addLog('pos', 'Retail POS Sale Completed', `Collected ${currencyObj.symbol}${total} via ${paymentMethod}`, 'POS Terminal');
   };
 
   const markInvoicePaid = (invoiceId, paymentMethod = 'Cash') => {
@@ -524,9 +801,8 @@ export function GymDataProvider({ children }) {
   const sendWhatsAppReminder = (invoiceId) => {
     const inv = invoices.find(i => i.id === invoiceId);
     if (!inv) return;
-
     setInvoices(invoices.map(i => i.id === invoiceId ? { ...i, reminderSent: true } : i));
-    addLog('reminder', 'WhatsApp Reminder Sent', `Sent payment reminder for ${inv.invoiceNo} to ${inv.memberName} (${inv.memberPhone})`, 'Autopilot');
+    addLog('reminder', 'WhatsApp Reminder Sent', `Sent renewal reminder for ${inv.invoiceNo} to ${inv.memberName}`, 'Autopilot');
   };
 
   const addExpense = (expenseData) => {
@@ -555,7 +831,6 @@ export function GymDataProvider({ children }) {
   // Metrics
   const activeMembersCount = members.filter(m => m.status === 'active').length;
   const expiringMembersCount = members.filter(m => m.status === 'expiring').length;
-  const expiredMembersCount = members.filter(m => m.status === 'expired').length;
   const totalRevenueMonth = invoices
     .filter(i => i.status === 'Paid')
     .reduce((acc, curr) => acc + Number(curr.amount), 0);
@@ -566,9 +841,17 @@ export function GymDataProvider({ children }) {
     .filter(i => i.status === 'Unpaid')
     .reduce((acc, curr) => acc + Number(curr.amount), 0);
 
+  // Salon specific metrics
+  const todayAppointmentsCount = appointments.length;
+  const salonServicesRevenue = appointments
+    .filter(a => a.status === 'Completed' || a.status === 'In Chair')
+    .reduce((acc, curr) => acc + Number(curr.price), 0);
+
   return (
     <GymDataContext.Provider
       value={{
+        businessMode,
+        setBusinessMode,
         gymProfile,
         setGymProfile,
         currencyObj,
@@ -586,6 +869,14 @@ export function GymDataProvider({ children }) {
         setExpenses,
         logs,
         setLogs,
+        appointments,
+        setAppointments,
+        salonServices,
+        setSalonServices,
+        retailProducts,
+        setRetailProducts,
+        staff,
+        setStaff,
         whatsAppConfig,
         setWhatsAppConfig,
         currentView,
@@ -596,16 +887,20 @@ export function GymDataProvider({ children }) {
         metrics: {
           activeMembersCount,
           expiringMembersCount,
-          expiredMembersCount,
           totalRevenueMonth,
           totalExpensesMonth,
           netProfit: totalRevenueMonth - totalExpensesMonth,
           unpaidInvoicesCount,
           unpaidAmount,
-          checkInsToday: checkins.length + 82, // realistic daily count
+          checkInsToday: checkins.length + 82,
+          todayAppointmentsCount,
+          salonServicesRevenue: salonServicesRevenue + 1280, // realistic monthly salon revenue
         },
         addMember,
         recordCheckIn,
+        bookAppointment,
+        updateAppointmentStatus,
+        processRetailSale,
         markInvoicePaid,
         sendWhatsAppReminder,
         addExpense,

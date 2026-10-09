@@ -6,38 +6,39 @@ import InvoicePdfModal from './InvoicePdfModal';
 import { 
   ArrowRight, Check, Play, Smartphone, MessageSquare, 
   CreditCard, Calendar, ShieldCheck, Globe, Users, 
-  Flame, Zap, ChevronDown, ChevronUp, Star, Sparkles, QrCode
+  Flame, Zap, ChevronDown, ChevronUp, Star, Sparkles, 
+  Scissors, ShoppingBag, Award, HeartPulse 
 } from 'lucide-react';
 
 export default function LandingPageView({ onEnterApp, onViewDeck, onViewDirectory }) {
-  const { invoices } = useGymData();
+  const { invoices, salonServices, currencyObj } = useGymData();
   const [openFaq, setOpenFaq] = useState(null);
   const [selectedInvoice, setSelectedInvoice] = useState(null);
 
   const faqs = [
     {
-      q: 'What is Gym Management Soft?',
-      a: 'It is an all-in-one cloud management platform that handles member subscriptions, automatic renewal invoices, front desk check-ins, WhatsApp reminders from your own number, and gives members an installable smartphone app.'
+      q: 'Can I use this software for a Beauty Salon, a Gym, or both combined?',
+      a: 'Yes! The software is built with a 1-click Business Mode switcher. You can run it strictly as a Fitness Gym, strictly as a Beauty Salon & Spa, or as a Hybrid Wellness Club where members enjoy both workout facilities and grooming/spa appointments under one unified pass.'
     },
     {
-      q: 'How much does Gym Management Soft cost?',
-      a: 'One transparent plan: $1 per active member per month. A gym with 40 active members pays $40. There are zero credit card requirements to start, no setup fees, and we never take a percentage of your member fee collection.'
+      q: 'How does WhatsApp automation work without per-message charges?',
+      a: 'You simply link your business WhatsApp phone once using a quick QR code scan on the dashboard. Appointment confirmations and membership renewal alerts dispatch directly from your official WhatsApp number with zero Meta Cloud API fees.'
     },
     {
-      q: 'How does WhatsApp automation work without API charges?',
-      a: 'You simply link your gym’s existing WhatsApp phone once using a quick QR code scan on the dashboard. Messages dispatch directly from your official WhatsApp number without expensive Meta Cloud API per-message fees.'
+      q: 'How does the software track stylist & trainer commissions?',
+      a: 'Built-in hybrid payroll handles both: fitness coaches earn per personal training session ($25/PT), and salon stylists/beauticians earn percentage commissions on services (e.g. 20% on blowdrys, 25% on HydraFacials). Owners get a 1-click monthly payout settlement.'
     },
     {
-      q: 'Can my front desk staff use it without seeing owner financials?',
-      a: 'Yes! The Counter login is designed specifically for reception: staff can check members in, register walk-ins, and record payments, while the gym owner retains private access to financial profits, expenses, and logs.'
+      q: 'Does it include a Point of Sale (POS) for selling products?',
+      a: 'Yes! The retail POS allows reception to sell whey protein, gym accessories, Moroccan hair oils, and skincare serums in one tap, deduct inventory, and print receipts or charge directly to the client account.'
     },
     {
-      q: 'How do members get their app?',
-      a: 'When you register a member with their WhatsApp number, they receive an instant magic link that logs them directly into their branded member app. They can tap to save it to their Android or iPhone home screen without any app store friction.'
+      q: 'How much does the software cost?',
+      a: 'One simple transparent price: $1 per active member or client per month. Free signup, no credit card required, and first 30 days are completely free.'
     },
     {
-      q: 'Do I get my own gym website and domain?',
-      a: 'Yes. Every gym gets its own dedicated public website showcasing classes, trainer bios, timings, and plans. You can easily connect your own custom domain name (e.g. yourgym.com) with free automatic SSL.'
+      q: 'Can salon stylists save hair dye formulas and skin allergy notes?',
+      a: 'Yes! Every client has a dedicated Consultation Card where staff log hair color formulas, patch tests, skin sensitivities, and workout injury precautions so your team provides 5-star personalized service every visit.'
     }
   ];
 
@@ -83,9 +84,9 @@ export default function LandingPageView({ onEnterApp, onViewDeck, onViewDirector
                   padding: '2px 8px',
                   borderRadius: '999px',
                 }}>
-                  $1
+                  HYBRID WELLNESS OS
                 </span>
-                <span>per active member · every feature included</span>
+                <span>Gyms, Beauty Salons & Spas · $1 / client</span>
                 <ArrowRight size={14} color="var(--color-primary)" />
               </div>
 
@@ -97,7 +98,7 @@ export default function LandingPageView({ onEnterApp, onViewDeck, onViewDirector
                 letterSpacing: '-0.03em',
                 marginBottom: '20px',
               }}>
-                Gym management software that runs your gym on <span style={{ color: 'var(--color-primary)' }}>autopilot</span>
+                The Operating System for <span style={{ color: 'var(--color-primary)' }}>Fitness Gyms & Beauty Salons</span>
               </h1>
 
               {/* Subheading */}
@@ -108,7 +109,7 @@ export default function LandingPageView({ onEnterApp, onViewDeck, onViewDirector
                 marginBottom: '32px',
                 maxWidth: '600px',
               }}>
-                Members, plans, subscriptions, branded invoices, check-ins and WhatsApp reminders in one fast app for owners, front desk, trainers and members. Stop chasing fees and get back to training people.
+                Workouts, hair styling, HydraFacials, sports massage, automatic renewal invoices, and zero-cost WhatsApp reminders in one fast app. Run on autopilot and sell high-margin hybrid packages.
               </p>
 
               {/* CTAs */}
@@ -118,7 +119,7 @@ export default function LandingPageView({ onEnterApp, onViewDeck, onViewDirector
                   className="btn-primary"
                   style={{ padding: '14px 28px', fontSize: '1rem' }}
                 >
-                  Start free, no card <ArrowRight size={18} />
+                  Launch Live Platform <Zap size={18} />
                 </button>
 
                 <button
@@ -126,33 +127,33 @@ export default function LandingPageView({ onEnterApp, onViewDeck, onViewDirector
                   className="btn-secondary"
                   style={{ padding: '14px 24px', fontSize: '1rem' }}
                 >
-                  <Play size={16} /> View Product Deck
+                  <Play size={16} /> View 22-Slide Pitch Deck
                 </button>
               </div>
 
               {/* Highlights */}
               <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', fontSize: '0.8125rem', color: 'var(--color-text-muted)' }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <Check size={16} color="var(--color-primary)" /> Free sign-up
+                  <Check size={16} color="var(--color-primary)" /> Salon Appointments + Gym Passes
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <Check size={16} color="var(--color-primary)" /> No credit card
+                  <Check size={16} color="var(--color-primary)" /> Retail Store POS
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <Check size={16} color="var(--color-primary)" /> Members get their own app
+                  <Check size={16} color="var(--color-primary)" /> Stylist & Trainer Commissions
                 </span>
               </div>
             </div>
 
             {/* Right Hero: Interactive Smartphone Mockup with Floating Badges */}
             <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
-              {/* Floating notification badge: WhatsApp reminder */}
+              {/* Floating notification badge: Salon Appointment */}
               <div
                 className="glass"
                 style={{
                   position: 'absolute',
-                  top: '12%',
-                  left: '-10px',
+                  top: '10%',
+                  left: '-14px',
                   zIndex: 20,
                   padding: '10px 16px',
                   borderRadius: 'var(--radius-md)',
@@ -167,17 +168,17 @@ export default function LandingPageView({ onEnterApp, onViewDeck, onViewDirector
                   width: '32px',
                   height: '32px',
                   borderRadius: '10px',
-                  backgroundColor: '#10b981',
+                  backgroundColor: '#ff2a85',
                   color: '#ffffff',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
-                  <MessageSquare size={16} />
+                  <Scissors size={16} />
                 </div>
                 <div>
-                  <p style={{ fontSize: '0.75rem', fontWeight: 700 }}>WhatsApp reminder sent</p>
-                  <p style={{ fontSize: '0.6875rem', color: 'var(--color-text-faint)' }}>Plan ends in 3 days</p>
+                  <p style={{ fontSize: '0.75rem', fontWeight: 700 }}>HydraFacial Booked</p>
+                  <p style={{ fontSize: '0.6875rem', color: 'var(--color-text-faint)' }}>Today at 03:00 PM · Dr. Hina</p>
                 </div>
               </div>
 
@@ -187,7 +188,7 @@ export default function LandingPageView({ onEnterApp, onViewDeck, onViewDirector
                 style={{
                   position: 'absolute',
                   bottom: '14%',
-                  right: '-10px',
+                  right: '-14px',
                   zIndex: 20,
                   padding: '10px 16px',
                   borderRadius: 'var(--radius-md)',
@@ -208,11 +209,11 @@ export default function LandingPageView({ onEnterApp, onViewDeck, onViewDirector
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
-                  <CreditCard size={16} />
+                  <Sparkles size={16} />
                 </div>
                 <div>
-                  <p style={{ fontSize: '0.75rem', fontWeight: 700 }}>Invoice #1048 paid</p>
-                  <p style={{ fontSize: '0.6875rem', color: 'var(--color-text-faint)' }}>Bank transfer verified</p>
+                  <p style={{ fontSize: '0.75rem', fontWeight: 700 }}>Glow & Gains VIP Paid</p>
+                  <p style={{ fontSize: '0.6875rem', color: 'var(--color-text-faint)' }}>Gym + 2x Salon Blowdry ($85)</p>
                 </div>
               </div>
 
@@ -225,18 +226,18 @@ export default function LandingPageView({ onEnterApp, onViewDeck, onViewDirector
         </div>
       </section>
 
-      {/* PROBLEM VS SOLUTION SECTION */}
+      {/* 3 BUSINESS MODELS IN ONE PLATFORM */}
       <section style={{ padding: '60px 0', borderTop: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface-raised)' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '44px' }}>
             <span className="badge badge-primary" style={{ marginBottom: '10px' }}>
-              Why Gyms Switch
+              One Platform · Three Business Modes
             </span>
             <h2 style={{ fontSize: '2.2rem', fontWeight: 800 }}>
-              Say goodbye to awkward fee chasing & spreadsheets
+              Tailored for how modern wellness clubs operate
             </h2>
-            <p style={{ color: 'var(--color-text-muted)', maxWidth: '600px', margin: '8px auto 0 auto' }}>
-              Gym owners lose up to 20% of their revenues because manual billing slips through the cracks.
+            <p style={{ color: 'var(--color-text-muted)', maxWidth: '640px', margin: '8px auto 0 auto' }}>
+              Whether you run a fitness center, a luxury beauty salon, or both under one roof, ZenithSoft scales with your exact business model.
             </p>
           </div>
 
@@ -245,59 +246,54 @@ export default function LandingPageView({ onEnterApp, onViewDeck, onViewDirector
             gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
             gap: '24px',
           }}>
-            {/* The Old Clunky Way */}
-            <div className="card" style={{ padding: '32px', border: '1px solid rgba(239, 68, 68, 0.3)', backgroundColor: 'var(--color-surface)' }}>
-              <span className="badge badge-danger" style={{ marginBottom: '14px' }}>
-                The Old Manual Way
-              </span>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: '16px' }}>
-                Midnight Spreadsheets & Paper Registers
-              </h3>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.9375rem', color: 'var(--color-text-muted)' }}>
-                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                  <span style={{ color: '#ef4444', fontWeight: 800 }}>✕</span>
-                  <span>Updating Excel spreadsheets late at night and forgetting who actually paid.</span>
-                </li>
-                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                  <span style={{ color: '#ef4444', fontWeight: 800 }}>✕</span>
-                  <span>Sending awkward personal WhatsApp texts asking members for membership dues.</span>
-                </li>
-                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                  <span style={{ color: '#ef4444', fontWeight: 800 }}>✕</span>
-                  <span>Paper attendance registers that get lost, damaged or skipped during rushes.</span>
-                </li>
-                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                  <span style={{ color: '#ef4444', fontWeight: 800 }}>✕</span>
-                  <span>Paying expensive per-message API fees ($0.05/SMS) on older platforms.</span>
-                </li>
+            {/* Mode 1: Pure Fitness Gyms */}
+            <div className="card" style={{ padding: '28px', backgroundColor: 'var(--color-surface)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+                <span style={{ fontSize: '1.75rem' }}>🏋️</span>
+                <div>
+                  <h3 style={{ fontSize: '1.2rem', fontWeight: 800 }}>Fitness Gyms & Studios</h3>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--color-primary)', fontWeight: 600 }}>Iron, CrossFit, Boxing & Yoga</span>
+                </div>
+              </div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.875rem', color: 'var(--color-text-muted)' }}>
+                <li>✓ 1-Tap check-in reception terminal & barcode scan</li>
+                <li>✓ 365-Day attendance heatmaps & workout streaks</li>
+                <li>✓ Automated membership renewal billing</li>
+                <li>✓ Personal trainer session split calculator</li>
               </ul>
             </div>
 
-            {/* The Autopilot Way */}
-            <div className="card" style={{ padding: '32px', border: '1.5px solid var(--color-primary)', backgroundColor: 'var(--color-surface)', boxShadow: '0 0 35px -10px var(--color-primary-glow)' }}>
-              <span className="badge badge-primary" style={{ marginBottom: '14px' }}>
-                The GymSoft Autopilot
-              </span>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: '16px' }}>
-                Automated Invoices & QR WhatsApp
-              </h3>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.9375rem', color: 'var(--color-text)' }}>
-                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                  <Check size={18} color="var(--color-primary)" />
-                  <span>Every invoice is generated and renewed automatically on the due date.</span>
-                </li>
-                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                  <Check size={18} color="var(--color-primary)" />
-                  <span>Automated WhatsApp reminders sent from gym's own number linked via QR code ($0 cost).</span>
-                </li>
-                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                  <Check size={18} color="var(--color-primary)" />
-                  <span>1-Tap GPS/QR check-in for members with visual 365-day workout heatmaps.</span>
-                </li>
-                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                  <Check size={18} color="var(--color-primary)" />
-                  <span>Free gym website on your own custom domain name (yourgym.com).</span>
-                </li>
+            {/* Mode 2: Beauty Salons & Spas */}
+            <div className="card" style={{ padding: '28px', backgroundColor: 'var(--color-surface)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+                <span style={{ fontSize: '1.75rem' }}>💅</span>
+                <div>
+                  <h3 style={{ fontSize: '1.2rem', fontWeight: 800 }}>Beauty Salons & Spas</h3>
+                  <span style={{ fontSize: '0.75rem', color: '#ff2a85', fontWeight: 600 }}>Hair, Aesthetics, Facials & Massages</span>
+                </div>
+              </div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.875rem', color: 'var(--color-text-muted)' }}>
+                <li>✓ Stylist chair appointment scheduler & calendar</li>
+                <li>✓ Automated WhatsApp 2-hr booking reminder alerts</li>
+                <li>✓ Client Consultation Cards (hair formulas & skin allergies)</li>
+                <li>✓ Stylist percentage commission ledger (20%-30%)</li>
+              </ul>
+            </div>
+
+            {/* Mode 3: Hybrid Wellness Clubs (The Flagship) */}
+            <div className="card" style={{ padding: '28px', backgroundColor: 'var(--color-surface)', border: '2px solid var(--color-primary)', boxShadow: '0 0 30px -10px var(--color-primary-glow)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+                <span style={{ fontSize: '1.75rem' }}>⚡</span>
+                <div>
+                  <h3 style={{ fontSize: '1.2rem', fontWeight: 800 }}>Hybrid Wellness Clubs</h3>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--color-success)', fontWeight: 700 }}>2x to 3x Higher Revenue / Client</span>
+                </div>
+              </div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.875rem', color: 'var(--color-text)' }}>
+                <li>★ <strong>Combo Bundles</strong>: Gym floor + 2 Salon Blowdrys + 1 Massage</li>
+                <li>★ <strong>Retail Store POS</strong>: Sell whey protein & haircare serums together</li>
+                <li>★ <strong>Unified Member Pass</strong>: 1 QR pass for gym entry & spa chairs</li>
+                <li>★ <strong>Zero Extra Software</strong>: Replaces 2 separate subscriptions</li>
               </ul>
             </div>
           </div>
@@ -311,83 +307,9 @@ export default function LandingPageView({ onEnterApp, onViewDeck, onViewDirector
         </div>
       </section>
 
-      {/* FEATURE TILES */}
-      <section style={{ padding: '70px 0', backgroundColor: 'var(--color-surface-raised)', borderTop: '1px solid var(--color-border)' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <span className="badge badge-primary" style={{ marginBottom: '10px' }}>
-              Full Feature Suite
-            </span>
-            <h2 style={{ fontSize: '2.2rem', fontWeight: 800 }}>
-              Everything your gym needs under one roof
-            </h2>
-          </div>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '24px',
-          }}>
-            {[
-              {
-                icon: <MessageSquare size={22} color="#10b981" />,
-                title: 'WhatsApp from Own Number',
-                desc: 'Scan once with QR code. No paid API, no per-message cost. Official gym reminders delivered with 100% open rates.',
-              },
-              {
-                icon: <Smartphone size={22} color="var(--color-primary)" />,
-                title: 'Member Smartphone App',
-                desc: 'Works on iOS and Android without app store download. Members tap to check in and see their progress streaks.',
-              },
-              {
-                icon: <Flame size={22} color="#f59e0b" />,
-                title: '365-Day Activity Heatmap',
-                desc: 'GitHub-style workout streak visualizer that keeps members motivated and boosts retention by over 30%.',
-              },
-              {
-                icon: <Globe size={22} color="var(--color-tech)" />,
-                title: 'Gym Website & Own Domain',
-                desc: 'Every gym gets a sleek website for classes and pricing, ready to map to your own domain (e.g. ironparadise.fit).',
-              },
-              {
-                icon: <Users size={22} color="var(--color-primary)" />,
-                title: '4 Role Logins',
-                desc: 'Owners see profit reports, counter staff handle quick check-ins, trainers view assigned clients, members get their pass.',
-              },
-              {
-                icon: <ShieldCheck size={22} color="var(--color-success)" />,
-                title: 'Excel / CSV 1-Click Export',
-                desc: 'Zero lock-in. Download members, financial ledgers, and attendance history as formatted Excel sheets anytime.',
-              },
-            ].map((f, i) => (
-              <div key={i} className="card" style={{ padding: '24px', backgroundColor: 'var(--color-surface)' }}>
-                <div style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: 'var(--radius-sm)',
-                  backgroundColor: 'var(--color-surface-raised)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '16px',
-                }}>
-                  {f.icon}
-                </div>
-                <h4 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '8px' }}>
-                  {f.title}
-                </h4>
-                <p style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)', lineHeight: 1.5 }}>
-                  {f.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* FAQ SECTION */}
-      <section style={{ padding: '70px 0' }}>
-        <div className="container" style={{ maxWidth: '800px' }}>
+      <section style={{ padding: '70px 0', backgroundColor: 'var(--color-surface-raised)', borderTop: '1px solid var(--color-border)' }}>
+        <div className="container" style={{ maxWidth: '820px' }}>
           <div style={{ textAlign: 'center', marginBottom: '40px' }}>
             <span className="badge badge-primary" style={{ marginBottom: '10px' }}>
               FAQ
@@ -438,13 +360,13 @@ export default function LandingPageView({ onEnterApp, onViewDeck, onViewDirector
       }}>
         <div className="container">
           <span className="badge badge-primary" style={{ marginBottom: '14px' }}>
-            Start in 2 Minutes
+            Sale-Ready SaaS Platform
           </span>
           <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, marginBottom: '16px' }}>
-            Ready to put your gym on <span style={{ color: 'var(--color-primary)' }}>autopilot</span>?
+            Run your gym, beauty salon, or hybrid club on <span style={{ color: 'var(--color-primary)' }}>autopilot</span>
           </h2>
           <p style={{ color: 'var(--color-text-muted)', maxWidth: '540px', margin: '0 auto 32px auto', fontSize: '1.05rem' }}>
-            Free sign-up with no credit card required. Experience what modern gym software feels like.
+            Start for $1 with free sign-up and no credit card required. Experience the future of modern wellness management.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '14px', flexWrap: 'wrap' }}>
             <button
