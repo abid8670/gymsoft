@@ -1,4 +1,3 @@
-import { DatabaseSync } from 'node:sqlite';
 import pg from 'pg';
 import mysql from 'mysql2/promise';
 import path from 'node:path';
@@ -89,6 +88,7 @@ class MultiDbAdapter {
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
+      const { DatabaseSync } = await import('node:sqlite');
       this.sqliteDb = new DatabaseSync(sqlitePath);
       console.log(`[MultiDB] Local SQLite connected file: ${sqlitePath}`);
     }
