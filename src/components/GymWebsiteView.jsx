@@ -78,7 +78,7 @@ export default function GymWebsiteView() {
             <CheckCircle2 size={14} /> Cloudflare Edge CDN Active
           </span>
           <span>
-            CNAME Target: <strong style={{ color: 'var(--color-text)' }}>cname.gymmanagementsoft.com</strong>
+            CNAME Target: <strong style={{ color: 'var(--color-text)' }}>cname.zenithsoft.cloud</strong>
           </span>
         </div>
       </div>

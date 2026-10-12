@@ -408,7 +408,7 @@ export default function DeckViewer({ onLaunchApp }) {
           </div>
 
           <span style={{ fontSize: '0.8125rem', color: 'var(--color-text-faint)' }}>
-            gymmanagementsoft.com/deck
+            Hybrid Wellness Pitch Deck · Official Confidential
           </span>
         </div>
 

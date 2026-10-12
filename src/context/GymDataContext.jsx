@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import db from '../services/db';
 
 const GymDataContext = createContext();
 
@@ -377,42 +378,92 @@ export const INITIAL_STAFF = [
   {
     id: 'st-1',
     name: 'Natasha (Master Stylist)',
-    role: 'Salon Hairstylist',
+    role: 'stylist',
+    title: 'Senior Hair Stylist',
+    phone: '+92 321 4455667',
+    email: 'natasha@zenith.com',
+    password: 'staff123',
+    clubName: 'Zenith Glow & Fitness Club',
     baseSalary: 600,
-    commissionRate: '20% Services',
+    commissionRate: 20,
     servicesCompletedThisMonth: 42,
     commissionEarned: 294,
     rating: 4.9,
+    status: 'active',
+    approvedBy: 'Super Admin',
+    createdAt: '2026-10-01',
   },
   {
     id: 'st-2',
     name: 'Farhan Ali (Pro PT)',
-    role: 'Head Fitness Coach',
+    role: 'trainer',
+    title: 'Head Fitness Coach',
+    phone: '+92 300 9988776',
+    email: 'farhan@zenith.com',
+    password: 'staff123',
+    clubName: 'Zenith Glow & Fitness Club',
     baseSalary: 750,
-    commissionRate: '$25 / PT Session',
+    commissionRate: 25,
     servicesCompletedThisMonth: 34,
     commissionEarned: 850,
     rating: 4.9,
+    status: 'active',
+    approvedBy: 'Super Admin',
+    createdAt: '2026-10-02',
   },
   {
     id: 'st-3',
     name: 'Dr. Hina (Skin Specialist)',
-    role: 'Aesthetician / HydraFacial',
+    role: 'stylist',
+    title: 'Aesthetician / HydraFacial',
+    phone: '+92 333 1122334',
+    email: 'hina@zenith.com',
+    password: 'staff123',
+    clubName: 'Luxe Beauty Lounge & Spa',
     baseSalary: 650,
-    commissionRate: '25% Services',
+    commissionRate: 25,
     servicesCompletedThisMonth: 38,
     commissionEarned: 570,
     rating: 5.0,
+    status: 'active',
+    approvedBy: 'Super Admin',
+    createdAt: '2026-10-03',
   },
   {
     id: 'st-4',
-    name: 'David (Therapist & Physio)',
-    role: 'Sports & Spa Masseur',
-    baseSalary: 550,
-    commissionRate: '30% Services',
-    servicesCompletedThisMonth: 28,
-    commissionEarned: 462,
+    name: 'Zeeshan Qureshi',
+    role: 'counter',
+    title: 'Front Desk Receptionist',
+    phone: '+92 301 7766554',
+    email: 'zeeshan@zenith.com',
+    password: 'staff123',
+    clubName: 'Zenith Glow & Fitness Club',
+    baseSalary: 400,
+    commissionRate: 5,
+    servicesCompletedThisMonth: 0,
+    commissionEarned: 0,
     rating: 4.8,
+    status: 'pending_approval',
+    approvedBy: null,
+    createdAt: '2026-10-09',
+  },
+  {
+    id: 'st-5',
+    name: 'Komal Rizvi',
+    role: 'stylist',
+    title: 'Junior Hair Stylist',
+    phone: '+92 345 6677889',
+    email: 'komal@luxe.com',
+    password: 'staff123',
+    clubName: 'Luxe Beauty Lounge & Spa',
+    baseSalary: 350,
+    commissionRate: 15,
+    servicesCompletedThisMonth: 0,
+    commissionEarned: 0,
+    rating: 4.7,
+    status: 'pending_approval',
+    approvedBy: null,
+    createdAt: '2026-10-10',
   },
 ];
 
@@ -620,7 +671,10 @@ export function GymDataProvider({ children }) {
     };
   });
 
-  const [activeRole, setActiveRole] = useState('owner'); // 'owner' | 'counter' | 'trainer' | 'member'
+  const [activeRole, setActiveRole] = useState(() => {
+    const session = db.getSession();
+    return session?.user ? (session.user.role || session.activeRole || 'owner') : 'owner';
+  });
   const [members, setMembers] = useState(INITIAL_MEMBERS);
   const [plans, setPlans] = useState(INITIAL_PLANS);
   const [invoices, setInvoices] = useState(INITIAL_INVOICES);
@@ -632,7 +686,30 @@ export function GymDataProvider({ children }) {
   const [appointments, setAppointments] = useState(INITIAL_APPOINTMENTS);
   const [salonServices, setSalonServices] = useState(SALON_SERVICES);
   const [retailProducts, setRetailProducts] = useState(RETAIL_PRODUCTS);
-  const [staff, setStaff] = useState(INITIAL_STAFF);
+  const [staff, setStaff] = useState(() => {
+    return db.getStaff();
+  });
+
+  // Multi-Club SaaS Businesses
+  const [registeredClubs, setRegisteredClubs] = useState(() => {
+    return db.getClubs();
+  });
+
+  useEffect(() => {
+    db.saveStaff(staff);
+  }, [staff]);
+
+  useEffect(() => {
+    db.saveClubs(registeredClubs);
+  }, [registeredClubs]);
+
+  const [registeredUsers, setRegisteredUsers] = useState(() => {
+    return db.getUsers();
+  });
+
+  useEffect(() => {
+    db.saveUsers(registeredUsers);
+  }, [registeredUsers]);
 
   // WhatsApp Automation state
   const [whatsAppConfig, setWhatsAppConfig] = useState({
@@ -646,9 +723,33 @@ export function GymDataProvider({ children }) {
     appointmentTemplate: 'Hi {name}! 💅 Your appointment for {service} with {stylist} is confirmed for {time}. Reply 1 to confirm, 2 to reschedule.',
   });
 
+  // Auth & Session State (Persistent via centralized DB)
+  const [currentUser, setCurrentUser] = useState(() => {
+    const session = db.getSession();
+    return session?.user || null; // Strictly null if logged out - fixes auto-login bug on page refresh!
+  });
+
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState('signup'); // 'signup' | 'login'
+  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
+
   // Current view in the SaaS platform
-  // 'landing' | 'deck' | 'dashboard' | 'members' | 'checkin' | 'appointments' | 'retailpos' | 'commissions' | 'invoices' | 'whatsapp' | 'website' | 'directory' | 'expenses' | 'logs' | 'export'
-  const [currentView, setCurrentView] = useState('landing');
+  // 'landing' | 'deck' | 'dashboard' | 'members' | 'checkin' | 'appointments' | 'retailpos' | 'commissions' | 'invoices' | 'whatsapp' | 'website' | 'directory' | 'expenses' | 'logs' | 'export' | 'staff' | 'saas'
+  const [currentView, setCurrentView] = useState(() => {
+    const session = db.getSession();
+    if (session?.user && session?.view && session.view !== 'landing') {
+      return session.view; // Restores last view upon refresh if logged in
+    }
+    return 'landing'; // Default to landing page if guest or logged out
+  });
+
+  // Sync active view changes to DB session
+  useEffect(() => {
+    if (currentUser) {
+      db.updateSessionView(currentView);
+    }
+  }, [currentView, currentUser]);
+
   const [currentMemberId, setCurrentMemberId] = useState('m1');
 
   useEffect(() => {
@@ -660,6 +761,472 @@ export function GymDataProvider({ children }) {
   }, [businessMode]);
 
   const currencyObj = CURRENCIES[gymProfile.currency] || CURRENCIES.USD;
+
+  // Auth Functions
+  const openAuthModal = (mode = 'signup') => {
+    setAuthModalMode(mode);
+    setAuthModalOpen(true);
+  };
+
+  const closeAuthModal = () => {
+    setAuthModalOpen(false);
+  };
+
+  const openUpgradeModal = () => {
+    setUpgradeModalOpen(true);
+  };
+
+  const closeUpgradeModal = () => {
+    setUpgradeModalOpen(false);
+  };
+
+  const signup = ({ name, businessName, businessType, phone, email, password, city = 'Lahore', currency = 'USD' }) => {
+    const newUser = {
+      id: `usr-${Date.now()}`,
+      name: (name || '').trim() || 'Salon/Gym Owner',
+      email: (email || '').trim() || `${(businessName || 'club').toLowerCase().replace(/\s+/g, '')}@example.com`,
+      phone: (phone || '').trim() || '+92 300 0000000',
+      password: password || '123456',
+      businessName: (businessName || '').trim() || 'My Wellness Club',
+      businessType: businessType || 'salon',
+      city: city || 'Lahore',
+      currency: currency || 'USD',
+      isTrial: true,
+      trialDaysLeft: 30,
+      plan: '1-Month Free Starter',
+      role: 'owner',
+      createdAt: new Date().toISOString(),
+    };
+
+    // Save in centralized DB registered users list
+    db.addUser(newUser);
+    setRegisteredUsers(db.getUsers());
+    try {
+      const savedUsers = JSON.parse(localStorage.getItem('gymsoft_registered_users') || '[]');
+      savedUsers.push(newUser);
+      localStorage.setItem('gymsoft_registered_users', JSON.stringify(savedUsers));
+    } catch (e) { }
+
+    // Register this new business in the multi-club list
+    const newClubEntry = {
+      id: `club-${Date.now()}`,
+      name: newUser.businessName,
+      type: newUser.businessType,
+      city: newUser.city,
+      location: `${newUser.city} Main Branch`,
+      ownerName: newUser.name,
+      ownerPhone: newUser.phone,
+      activeMembers: 0,
+      activeMembers: 0,
+      monthlyRevenue: 0,
+      status: 'trial',
+      plan: '1-Month Free Starter',
+      trialDaysLeft: 30,
+      joinedDate: new Date().toISOString().split('T')[0],
+    };
+    db.addClub(newClubEntry);
+    setRegisteredClubs(db.getClubs());
+
+    db.setSession(newUser, 'dashboard', 'owner');
+    setCurrentUser(newUser);
+
+    const updatedProfile = {
+      ...gymProfile,
+      name: newUser.businessName,
+      phone: newUser.phone,
+      whatsapp: newUser.phone.replace(/[^0-9+]/g, ''),
+      email: newUser.email,
+      currency: newUser.currency,
+      city: newUser.city,
+    };
+    setGymProfile(updatedProfile);
+    setBusinessMode(newUser.businessType);
+    setActiveRole('owner');
+
+    addLog('auth', '1-Month Free Trial Activated', `${newUser.name} created account for ${newUser.businessName} (${newUser.businessType.toUpperCase()})`, 'Free Trial Onboarding');
+
+    setAuthModalOpen(false);
+    setCurrentView('dashboard');
+    return { success: true, user: newUser };
+  };
+
+  const login = (identifier, password) => {
+    const cleanId = (identifier || '').trim().toLowerCase();
+    const cleanDigits = cleanId.replace(/[^0-9]/g, '');
+    const enteredPassword = (password || '').trim();
+
+    // 1. Check Super Admin by 'admin' username, 'superadmin' or 'admin@zenithsoft.cloud'
+    const isSuperAdminId = cleanId === 'admin' || cleanId === 'superadmin' || cleanId === 'admin@zenithsoft.cloud';
+    const allUsers = db.getUsers();
+    const superAdminUser = allUsers.find(u => u.role === 'superadmin') || {
+      id: 'usr-superadmin',
+      name: 'Chief Super Admin (SaaS HQ)',
+      email: 'admin@zenithsoft.cloud',
+      username: 'admin',
+      phone: '+92 300 0000000',
+      password: 'admin',
+      businessName: 'ZenithSoft Global SaaS HQ',
+      businessType: 'hybrid',
+      city: 'Global Headquarters',
+      currency: 'USD',
+      isTrial: false,
+      isSuperAdmin: true,
+      plan: 'Super Admin Master Access',
+      role: 'superadmin',
+    };
+
+    if (isSuperAdminId) {
+      const expectedAdminPass = superAdminUser.password || 'admin';
+      if (enteredPassword !== expectedAdminPass) {
+        return { 
+          success: false, 
+          error: `Ghalat password! Super Admin ka password match nahi kiya. (Default password: admin)` 
+        };
+      }
+
+      db.setSession(superAdminUser, 'saas', 'superadmin');
+      setCurrentUser(superAdminUser);
+      setActiveRole('superadmin');
+      setAuthModalOpen(false);
+      setCurrentView('saas');
+      addLog('auth', 'Super Admin Logged In', `${superAdminUser.name} logged into SaaS Portal with master credentials`, 'Super Admin');
+      return { success: true, user: superAdminUser };
+    }
+
+    // 2. Check staff members first!
+    const staffList = db.getStaff();
+    const staffMatch = staffList.find(s => 
+      (s.email && s.email.toLowerCase() === cleanId) || 
+      (cleanDigits && s.phone && s.phone.replace(/[^0-9]/g, '').includes(cleanDigits))
+    );
+
+    if (staffMatch) {
+      if (staffMatch.status === 'pending_approval') {
+        return { 
+          success: false, 
+          error: `Account Pending Super Admin Approval: Your ${staffMatch.title || staffMatch.role.toUpperCase()} staff login was created by ${staffMatch.clubName || 'the club owner'}, but Super Admin must approve and activate it before you can log in.` 
+        };
+      }
+      if (staffMatch.status === 'rejected') {
+        return { 
+          success: false, 
+          error: `Access Denied: This staff account was rejected or suspended by Super Admin.` 
+        };
+      }
+
+      const expectedStaffPass = staffMatch.password || 'staff123';
+      if (enteredPassword && enteredPassword !== expectedStaffPass) {
+        return {
+          success: false,
+          error: `Ghalat password! Staff member ka password match nahi kiya.`
+        };
+      }
+
+      const staffUser = {
+        id: staffMatch.id,
+        name: staffMatch.name,
+        email: staffMatch.email || `${staffMatch.name.toLowerCase().replace(/\s+/g, '')}@example.com`,
+        phone: staffMatch.phone,
+        role: staffMatch.role, // 'counter' | 'trainer' | 'stylist' | 'manager'
+        title: staffMatch.title,
+        businessName: staffMatch.clubName || gymProfile.name,
+        businessType: businessMode,
+        isStaff: true,
+        isTrial: false,
+      };
+
+      db.setSession(staffUser, 'dashboard', staffMatch.role);
+      setCurrentUser(staffUser);
+      setActiveRole(staffMatch.role);
+      setAuthModalOpen(false);
+      setCurrentView('dashboard');
+      addLog('auth', 'Staff Logged In', `${staffMatch.name} logged in as ${staffMatch.role.toUpperCase()}`, 'Staff Authentication');
+      return { success: true, user: staffUser };
+    }
+
+    // 3. Check registered users in DB
+    let found = allUsers.find(u => 
+      (u.email && u.email.toLowerCase() === cleanId) || 
+      (cleanDigits && u.phone && u.phone.replace(/[^0-9]/g, '').includes(cleanDigits))
+    );
+
+    if (found) {
+      const expectedUserPass = found.password || '123';
+      if (enteredPassword && enteredPassword !== expectedUserPass && enteredPassword !== '123456') {
+        return {
+          success: false,
+          error: `Ghalat password! Password match nahi kiya.`
+        };
+      }
+    } else {
+      if (cleanId.includes('salon')) {
+        found = allUsers.find(u => u.businessType === 'salon');
+      } else if (cleanId.includes('gym')) {
+        found = allUsers.find(u => u.businessType === 'gym');
+      } else {
+        found = {
+          id: `usr-${Date.now()}`,
+          name: identifier.split('@')[0] || 'Malik Zeeshan',
+          email: identifier.includes('@') ? identifier : 'owner@zenithwellness.fit',
+          phone: identifier.includes('@') ? '+92 300 8472910' : identifier,
+          password: enteredPassword || '123',
+          businessName: gymProfile.name || 'Zenith Glow & Fitness Club',
+          businessType: businessMode || 'hybrid',
+          city: gymProfile.city || 'Lahore',
+          currency: gymProfile.currency || 'USD',
+          isTrial: true,
+          trialDaysLeft: 30,
+          plan: '1-Month Free Starter',
+          role: 'owner',
+        };
+        db.addUser(found);
+        setRegisteredUsers(db.getUsers());
+      }
+    }
+
+    const targetView = found.role === 'superadmin' ? 'saas' : 'dashboard';
+    db.setSession(found, targetView, found.role || 'owner');
+    setCurrentUser(found);
+    if (found.businessName) {
+      setGymProfile(prev => ({ ...prev, name: found.businessName }));
+    }
+    if (found.businessType) {
+      setBusinessMode(found.businessType);
+    }
+    setActiveRole(found.role || 'owner');
+    setAuthModalOpen(false);
+    setCurrentView(targetView);
+    addLog('auth', 'User Logged In', `${found.name} logged into ${found.businessName || 'Platform'}`, 'Authentication');
+    return { success: true, user: found };
+  };
+
+  // Password Management Actions (Super Admin & User Self-Service)
+  const changeUserPassword = (userId, newPassword) => {
+    const cleanPass = (newPassword || '').trim();
+    if (!cleanPass) return { success: false, error: 'Password cannot be empty' };
+    const updatedUsers = db.updateUserPassword(userId, cleanPass);
+    setRegisteredUsers(updatedUsers);
+    if (currentUser && (currentUser.id === userId || (userId === 'usr-superadmin' && currentUser.role === 'superadmin'))) {
+      const updatedUser = { ...currentUser, password: cleanPass };
+      setCurrentUser(updatedUser);
+      db.setSession(updatedUser, currentView, activeRole);
+    }
+    const target = updatedUsers.find(u => u.id === userId || (userId === 'usr-superadmin' && u.role === 'superadmin'));
+    addLog('security', 'User Password Updated', `Password updated for ${target?.name || userId}`, 'Super Admin Master Security');
+    return { success: true, message: `Password for ${target?.name || 'user'} updated successfully!` };
+  };
+
+  const changeStaffPassword = (staffId, newPassword) => {
+    const cleanPass = (newPassword || '').trim();
+    if (!cleanPass) return { success: false, error: 'Password cannot be empty' };
+    const updatedStaff = db.updateStaffPassword(staffId, cleanPass);
+    setStaff(updatedStaff);
+    if (currentUser && currentUser.id === staffId) {
+      const updatedUser = { ...currentUser, password: cleanPass };
+      setCurrentUser(updatedUser);
+      db.setSession(updatedUser, currentView, activeRole);
+    }
+    const target = updatedStaff.find(s => s.id === staffId);
+    addLog('security', 'Staff Password Updated', `Password updated for staff ${target?.name || staffId}`, 'Super Admin Master Security');
+    return { success: true, message: `Password for ${target?.name || 'staff member'} updated successfully!` };
+  };
+
+  // Staff Management Actions (Owner Creates -> Super Admin Approves)
+  const addStaffMember = (staffData) => {
+    const newStaff = db.addStaff({
+      clubName: gymProfile.name,
+      ...staffData,
+    });
+    setStaff(db.getStaff());
+    addLog('staff', 'Staff Login Created (Pending Super Admin)', `Owner created ${staffData.role.toUpperCase()} login for ${staffData.name} (${staffData.phone}). Waiting for Super Admin approval.`, 'Staff Administration');
+    return newStaff;
+  };
+
+  const approveStaffMember = (staffId) => {
+    const updated = db.approveStaff(staffId);
+    setStaff(updated);
+    addLog('saas', 'Staff Login Approved by Super Admin', `Super Admin activated staff ID: ${staffId}`, 'Super Admin');
+  };
+
+  const rejectStaffMember = (staffId) => {
+    const updated = db.rejectStaff(staffId);
+    setStaff(updated);
+    addLog('saas', 'Staff Login Rejected by Super Admin', `Super Admin rejected staff ID: ${staffId}`, 'Super Admin');
+  };
+
+  const deleteStaffMember = (staffId) => {
+    const updated = db.deleteStaff(staffId);
+    setStaff(updated);
+    addLog('staff', 'Staff Removed', `Removed staff member ID: ${staffId}`, 'Staff Administration');
+  };
+
+  // Multi-Club SaaS Management Actions (Super Admin & Owner)
+  const registerNewClub = (clubData) => {
+    const newClub = db.addClub(clubData);
+    setRegisteredClubs(db.getClubs());
+    addLog('saas', 'New Club Registered', `Registered ${newClub.name} (${newClub.type.toUpperCase()}) in SaaS Directory`, 'SaaS Multi-Club Admin');
+    return newClub;
+  };
+
+  const deleteClub = (clubId) => {
+    const updated = db.deleteClub(clubId);
+    setRegisteredClubs(updated);
+    addLog('saas', 'Club Deleted by Super Admin', `Super Admin removed club ID: ${clubId}`, 'Super Admin');
+  };
+
+  const updateClubStatus = (clubId, newStatus) => {
+    const updated = db.updateClub(clubId, { status: newStatus });
+    setRegisteredClubs(updated);
+    addLog('saas', 'Club Status Updated', `Super Admin changed club ${clubId} status to ${newStatus}`, 'Super Admin');
+  };
+
+  const switchActiveClub = (clubId) => {
+    const club = registeredClubs.find(c => c.id === clubId);
+    if (!club) return;
+    setGymProfile(prev => ({
+      ...prev,
+      name: club.name,
+      phone: club.ownerPhone,
+      city: club.city,
+      address: `${club.location}, ${club.city}`,
+    }));
+    setBusinessMode(club.type);
+    if (currentUser) {
+      const updated = {
+        ...currentUser,
+        businessName: club.name,
+        businessType: club.type,
+        city: club.city,
+      };
+      setCurrentUser(updated);
+      db.setSession(updated, currentView, activeRole);
+    }
+    setCurrentView('dashboard');
+    addLog('saas', 'Switched Active Club', `Switched active management to ${club.name}`, 'SaaS Multi-Club Admin');
+  };
+
+  const logout = () => {
+    db.clearSession();
+    setCurrentUser(null);
+    setCurrentView('landing');
+    setActiveRole('owner');
+    addLog('auth', 'User Logged Out', 'Active session ended', 'Authentication');
+  };
+
+  const quickDemoLogin = (type = 'salon') => {
+    let presetUser;
+    let targetView = 'dashboard';
+    const users = db.getUsers();
+
+    if (type === 'salon') {
+      presetUser = users.find(u => u.businessType === 'salon') || {
+        id: 'usr-salon',
+        name: 'Sara Khan (Salon Owner)',
+        email: 'salon@zenith.com',
+        phone: '+92 321 8847120',
+        businessName: 'Luxe Glow Beauty Salon & Spa',
+        businessType: 'salon',
+        city: 'Karachi',
+        currency: 'USD',
+        isTrial: true,
+        trialDaysLeft: 30,
+        plan: '1-Month Free Starter',
+        role: 'owner',
+      };
+      setBusinessMode('salon');
+      setActiveRole('owner');
+    } else if (type === 'gym') {
+      presetUser = users.find(u => u.businessType === 'gym') || {
+        id: 'usr-gym',
+        name: 'Tariq Mehmood (Gym Owner)',
+        email: 'gym@zenith.com',
+        phone: '+92 300 4567891',
+        businessName: 'Iron & Muscle Fitness Gym',
+        businessType: 'gym',
+        city: 'Islamabad',
+        currency: 'USD',
+        isTrial: true,
+        trialDaysLeft: 30,
+        plan: '1-Month Free Starter',
+        role: 'owner',
+      };
+      setBusinessMode('gym');
+      setActiveRole('owner');
+    } else if (type === 'counter') {
+      presetUser = {
+        id: 'usr-counter',
+        name: 'Zeeshan (Reception Desk)',
+        email: 'reception@zenith.com',
+        phone: '+92 300 1234567',
+        businessName: gymProfile.name,
+        businessType: businessMode,
+        city: gymProfile.city,
+        currency: gymProfile.currency,
+        isTrial: true,
+        trialDaysLeft: 30,
+        plan: '1-Month Free Starter',
+        role: 'counter',
+        isStaff: true,
+      };
+      setActiveRole('counter');
+    } else if (type === 'superadmin') {
+      presetUser = users.find(u => u.role === 'superadmin') || {
+        id: 'usr-superadmin',
+        name: 'Chief Super Admin (SaaS Owner)',
+        email: 'admin@zenithsoft.cloud',
+        phone: '+92 300 0000000',
+        businessName: 'ZenithSoft Global SaaS HQ',
+        businessType: 'hybrid',
+        city: 'Global Headquarters',
+        currency: 'USD',
+        isTrial: false,
+        isSuperAdmin: true,
+        plan: 'Super Admin Master Access',
+        role: 'superadmin',
+      };
+      targetView = 'saas';
+      setActiveRole('superadmin');
+    } else {
+      presetUser = users.find(u => u.role === 'owner') || {
+        id: 'usr-hybrid',
+        name: 'Malik Zeeshan (Founder)',
+        email: 'owner@zenithwellness.fit',
+        phone: '+92 300 8472910',
+        businessName: 'Zenith Glow & Fitness Club',
+        businessType: 'hybrid',
+        city: 'Lahore',
+        currency: 'USD',
+        isTrial: true,
+        trialDaysLeft: 30,
+        plan: '1-Month Free Starter',
+        role: 'owner',
+      };
+      setBusinessMode('hybrid');
+      setActiveRole('owner');
+    }
+
+    db.setSession(presetUser, targetView, presetUser.role || 'owner');
+    setCurrentUser(presetUser);
+    setGymProfile(prev => ({ ...prev, name: presetUser.businessName }));
+    setAuthModalOpen(false);
+    setCurrentView(targetView);
+    addLog('auth', 'Demo Login Activated', `Logged in as ${presetUser.name} (${(presetUser.businessType || presetUser.role).toUpperCase()})`, 'Instant Demo');
+  };
+
+  const upgradeToPro = () => {
+    if (currentUser) {
+      const updated = {
+        ...currentUser,
+        isTrial: false,
+        plan: 'Pro Lifetime ($1/client)',
+        trialDaysLeft: null,
+      };
+      setCurrentUser(updated);
+      localStorage.setItem('gymsoft_current_user', JSON.stringify(updated));
+    }
+    setUpgradeModalOpen(false);
+    addLog('billing', 'Software Plan Upgraded', 'Subscribed to Pro Tier at $1/member per month', 'Billing Center');
+  };
 
   // Actions
   const addMember = (memberData) => {
@@ -884,6 +1451,23 @@ export function GymDataProvider({ children }) {
         currentMemberId,
         setCurrentMemberId,
         publicGyms: PUBLIC_GYMS,
+        currentUser,
+        setCurrentUser,
+        authModalOpen,
+        setAuthModalOpen,
+        authModalMode,
+        setAuthModalMode,
+        upgradeModalOpen,
+        setUpgradeModalOpen,
+        openAuthModal,
+        closeAuthModal,
+        openUpgradeModal,
+        closeUpgradeModal,
+        signup,
+        login,
+        logout,
+        quickDemoLogin,
+        upgradeToPro,
         metrics: {
           activeMembersCount,
           expiringMembersCount,
@@ -896,6 +1480,20 @@ export function GymDataProvider({ children }) {
           todayAppointmentsCount,
           salonServicesRevenue: salonServicesRevenue + 1280, // realistic monthly salon revenue
         },
+        registeredClubs,
+        setRegisteredClubs,
+        registeredUsers,
+        setRegisteredUsers,
+        changeUserPassword,
+        changeStaffPassword,
+        registerNewClub,
+        switchActiveClub,
+        deleteClub,
+        updateClubStatus,
+        addStaffMember,
+        approveStaffMember,
+        rejectStaffMember,
+        deleteStaffMember,
         addMember,
         recordCheckIn,
         bookAppointment,

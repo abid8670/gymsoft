@@ -17,13 +17,13 @@ export default function PricingCalculator({ onStartFree }) {
     <div className="card" style={{ padding: '36px', background: 'var(--color-surface)', border: '1px solid var(--color-border-strong)' }}>
       <div style={{ textAlign: 'center', marginBottom: '32px' }}>
         <span className="badge badge-primary" style={{ marginBottom: '10px' }}>
-          Transparent · Simple Pricing
+          Transparent · No Setup Fees · Free Trial
         </span>
-        <h3 style={{ fontSize: '2rem', fontWeight: 800 }}>
-          Just <span style={{ color: 'var(--color-primary)' }}>$1</span> per active member / month
+        <h3 style={{ fontSize: '2.1rem', fontWeight: 800 }}>
+          Just <span style={{ color: 'var(--color-primary)' }}>$1 / Rs 250</span> per active member / month
         </h3>
-        <p style={{ color: 'var(--color-text-muted)', maxWidth: '540px', margin: '8px auto 0 auto', fontSize: '0.9375rem' }}>
-          Only pay for members who actually train. If a member pauses or leaves, you don't pay for them. No setup fees, no contracts, no credit card required to start.
+        <p style={{ color: 'var(--color-text-muted)', maxWidth: '560px', margin: '8px auto 0 auto', fontSize: '0.9375rem', lineHeight: 1.6 }}>
+          Pehle <strong>1 Mahina (30 Din) bilkul free</strong> chala kar dekhein. Koi credit card nahi chahiye. Pasand aane par sirf active members ka $1 (Rs 250) per month. Jo member na aaye uska $0!
         </p>
       </div>
 
@@ -122,7 +122,7 @@ export default function PricingCalculator({ onStartFree }) {
               <span style={{ fontWeight: 700 }}>{currencyObj.symbol}{totalGymRevenue.toLocaleString()}</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.875rem', marginBottom: '8px' }}>
-              <span style={{ color: 'var(--color-text-muted)' }}>GymSoft Cost Share:</span>
+              <span style={{ color: 'var(--color-text-muted)' }}>ZenithSoft Cost Share:</span>
               <span style={{ fontWeight: 700, color: 'var(--color-success)' }}>Only {costPercentage}% of revenue</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.875rem' }}>
@@ -133,11 +133,11 @@ export default function PricingCalculator({ onStartFree }) {
 
           <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px 0', display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {[
-              'Unlimited QR WhatsApp message reminders (No Meta API fees)',
-              'Free custom domain & gym website included',
+              'Unlimited QR WhatsApp message reminders (whatsapp-web.js - No Meta fees)',
+              'Free custom club website included for your business',
               'Member PWA app with 365-day check-in heatmaps',
-              'Multi-role logins for Owner, Front Desk & Trainers',
-              'Free 30-day trial — first invoice after 1 month',
+              'Multi-role staff logins for Owner, Receptionists & Stylists',
+              'Free 1-month trial (30 days) — zero risk',
             ].map((perk, i) => (
               <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8125rem', color: 'var(--color-text-muted)' }}>
                 <Check size={14} color="var(--color-primary)" />
@@ -146,8 +146,8 @@ export default function PricingCalculator({ onStartFree }) {
             ))}
           </ul>
 
-          <button onClick={onStartFree} className="btn-primary" style={{ width: '100%', padding: '14px' }}>
-            Start Free — No Credit Card Needed
+          <button onClick={onStartFree} className="btn-primary" style={{ width: '100%', padding: '14px', fontSize: '1rem', fontWeight: 800 }}>
+            🎁 Start 1-Month Free Trial (30 Days) — No Credit Card Needed
           </button>
         </div>
       </div>
