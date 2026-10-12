@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { useGymData } from '../context/GymDataContext';
+import apiClient from '../services/apiClient';
 import { 
   Palette, Sun, Moon, Zap, Menu, X, Users, 
   ChevronDown, LayoutDashboard, CalendarCheck, Receipt, 
   MessageSquare, Globe, Building2, DollarSign, FileText, 
   ShoppingBag, Scissors, Award, Sparkles, ShieldCheck,
-  Gift, LogIn, LogOut, ArrowRight, CheckCircle2, ChevronRight
+  Gift, LogIn, LogOut, ArrowRight, CheckCircle2, ChevronRight,
+  Database
 } from 'lucide-react';
 
 export default function Navbar({ onOpenThemeModal }) {
@@ -22,6 +24,13 @@ export default function Navbar({ onOpenThemeModal }) {
   const [businessDropdownOpen, setBusinessDropdownOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [moreNavOpen, setMoreNavOpen] = useState(false);
+  const [dbStatus, setDbStatus] = useState({ available: false, dbType: 'loading...' });
+
+  useEffect(() => {
+    apiClient.checkHealth().then(status => {
+      setDbStatus(status);
+    });
+  }, []);
 
   const isLanding = currentView === 'landing';
 
@@ -229,6 +238,30 @@ export default function Navbar({ onOpenThemeModal }) {
                   </div>
                 )}
               </div>
+
+              {/* Multi-DB Engine Status Pill */}
+              <button
+                onClick={() => setCurrentView('saas')}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  padding: '4px 10px',
+                  borderRadius: 'var(--radius-full)',
+                  backgroundColor: 'var(--color-surface-raised)',
+                  border: '1px solid var(--color-border)',
+                  color: 'var(--color-text)',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+                title="Active Database Engine: Neon / MySQL / SQLite (Click to open SaaS Multi-DB Panel)"
+              >
+                <Database size={11} color={dbStatus.available ? '#10b981' : 'var(--color-primary)'} />
+                <span style={{ color: dbStatus.available ? 'var(--color-success)' : 'var(--color-primary)' }}>
+                  {dbStatus.dbType?.toUpperCase() || 'DB'}
+                </span>
+              </button>
             </div>
           )}
         </div>

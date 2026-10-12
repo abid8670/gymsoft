@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGymData } from '../context/GymDataContext';
 import confetti from 'canvas-confetti';
+import apiClient from '../services/apiClient';
 import { 
   Building2, Plus, ArrowRight, ShieldCheck, Phone, 
   MapPin, Users, DollarSign, Sparkles, Check, X, 
   ExternalLink, Search, Filter, Scissors, Dumbbell, Zap,
   Clock, CheckCircle2, AlertTriangle, Key, Trash2, Mail,
-  Lock, Eye, EyeOff
+  Lock, Eye, EyeOff, Database, Server, RefreshCw, Copy
 } from 'lucide-react';
 
 export default function SaaSPortalView() {
@@ -30,6 +31,52 @@ export default function SaaSPortalView() {
   const [userFilter, setUserFilter] = useState('all'); // 'all' | 'owners' | 'staff'
   const [userSearchTerm, setUserSearchTerm] = useState('');
   const [passwordSuccessAlert, setPasswordSuccessAlert] = useState('');
+
+  // Multi-DB States
+  const [dbHealth, setDbHealth] = useState({ status: 'checking', dbType: 'loading...', pingMs: 0 });
+  const [testUri, setTestUri] = useState('');
+  const [testResult, setTestResult] = useState(null);
+  const [isTestingDb, setIsTestingDb] = useState(false);
+  const [copiedKey, setCopiedKey] = useState('');
+
+  const fetchDbHealth = async () => {
+    try {
+      const res = await apiClient.checkHealth();
+      setDbHealth(res);
+    } catch {
+      setDbHealth({ status: 'offline', dbType: 'localStorage', pingMs: 0 });
+    }
+  };
+
+  useEffect(() => {
+    fetchDbHealth();
+  }, []);
+
+  const handleTestConnection = async (e) => {
+    e.preventDefault();
+    if (!testUri.trim()) return;
+    setIsTestingDb(true);
+    setTestResult(null);
+    try {
+      const res = await fetch('/api/db/test-connect', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ connectionUrl: testUri.trim() }),
+      });
+      const data = await res.json();
+      setTestResult(data);
+    } catch (err) {
+      setTestResult({ success: false, error: err.message });
+    } finally {
+      setIsTestingDb(false);
+    }
+  };
+
+  const copyToClipboard = (text, key) => {
+    navigator.clipboard?.writeText(text);
+    setCopiedKey(key);
+    setTimeout(() => setCopiedKey(''), 2000);
+  };
 
   // Form State
   const [name, setName] = useState('');
@@ -386,6 +433,39 @@ export default function SaaSPortalView() {
         >
           <Key size={15} />
           <span>Users & Passwords ({allAccounts.length})</span>
+        </button>
+
+        <button
+          onClick={() => { setActiveTab('database'); fetchDbHealth(); }}
+          style={{
+            flex: 1,
+            padding: '10px 14px',
+            borderRadius: 'var(--radius-xs)',
+            border: 'none',
+            backgroundColor: activeTab === 'database' ? 'var(--color-surface)' : 'transparent',
+            color: activeTab === 'database' ? 'var(--color-primary)' : 'var(--color-text-muted)',
+            fontWeight: activeTab === 'database' ? 800 : 600,
+            fontSize: '0.8125rem',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            boxShadow: activeTab === 'database' ? 'var(--shadow-sm)' : 'none',
+          }}
+        >
+          <Database size={15} />
+          <span>Multi-DB Hub</span>
+          <span style={{
+            fontSize: '0.625rem',
+            padding: '2px 7px',
+            borderRadius: '999px',
+            backgroundColor: dbHealth.status === 'healthy' ? 'rgba(16, 185, 129, 0.18)' : 'var(--color-surface-raised)',
+            color: dbHealth.status === 'healthy' ? '#10b981' : 'var(--color-text-muted)',
+            fontWeight: 800,
+          }}>
+            {dbHealth.dbType?.toUpperCase() || 'DB'}
+          </span>
         </button>
       </div>
 
@@ -1272,6 +1352,264 @@ export default function SaaSPortalView() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* ================= TAB 4: MULTI-DATABASE ENGINE HUB ================= */}
+      {activeTab === 'database' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginBottom: '32px' }}>
+          {/* Engine Status Banner */}
+          <div className="card" style={{
+            padding: '24px',
+            backgroundColor: 'var(--color-surface)',
+            border: dbHealth.status === 'healthy' ? '1.5px solid var(--color-success)' : '1.5px solid var(--color-warning)',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '16px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div style={{
+                width: '52px',
+                height: '52px',
+                borderRadius: '14px',
+                backgroundColor: dbHealth.status === 'healthy' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
+                color: dbHealth.status === 'healthy' ? '#10b981' : '#f59e0b',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <Database size={26} />
+              </div>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: 900, margin: 0 }}>
+                    Active Database: {dbHealth.dbType?.toUpperCase() || 'LOCAL STORAGE'}
+                  </h3>
+                  <span className={`badge ${dbHealth.status === 'healthy' ? 'badge-success' : 'badge-warning'}`} style={{ fontSize: '0.72rem' }}>
+                    ● {dbHealth.status === 'healthy' ? 'Online & Healthy' : 'Standby / Local'}
+                  </span>
+                </div>
+                <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)', margin: '4px 0 0 0' }}>
+                  Latency: <strong>{dbHealth.pingMs || 0} ms</strong> · Multi-Tenant Isolation: <strong>Active</strong> · Universal SQL Adapter: <strong>Neon / MySQL / SQLite</strong>
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={fetchDbHealth}
+              className="btn-secondary"
+              style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8125rem', fontWeight: 700 }}
+            >
+              <RefreshCw size={14} /> Refresh Health Ping
+            </button>
+          </div>
+
+          {/* Database Architecture Grid (3 Engines) */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '20px',
+          }}>
+            {/* Neon DB / PostgreSQL */}
+            <div className="card" style={{
+              padding: '24px',
+              backgroundColor: 'var(--color-surface)',
+              border: dbHealth.dbType === 'neon_postgres' || dbHealth.dbType === 'postgres' ? '2px solid var(--color-primary)' : '1px solid var(--color-border)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: 'rgba(0, 229, 153, 0.15)', color: '#00e599', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem' }}>
+                      🟢
+                    </div>
+                    <div>
+                      <h4 style={{ fontSize: '1.1rem', fontWeight: 800, margin: 0 }}>Neon PostgreSQL</h4>
+                      <span style={{ fontSize: '0.6875rem', color: '#00e599', fontWeight: 700 }}>Recommended for Vercel Cloud</span>
+                    </div>
+                  </div>
+                  {dbHealth.dbType === 'neon_postgres' && (
+                    <span className="badge badge-primary" style={{ fontSize: '0.65rem' }}>Active Engine</span>
+                  )}
+                </div>
+
+                <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)', lineHeight: 1.5, marginBottom: '14px' }}>
+                  Serverless PostgreSQL database with autoscaling and zero cold-start delay. Perfect for Vercel serverless deployment and remote cloud multi-tenant clubs.
+                </p>
+
+                <div style={{ backgroundColor: 'var(--color-surface-raised)', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', marginBottom: '14px' }}>
+                  <div style={{ fontSize: '0.6875rem', color: 'var(--color-text-faint)', fontWeight: 700, marginBottom: '4px', textTransform: 'uppercase' }}>Connection Format:</div>
+                  <code style={{ fontSize: '0.72rem', color: 'var(--color-text)', wordBreak: 'break-all', display: 'block' }}>
+                    postgresql://[user]:[pass]@[neon-host].neon.tech/neondb?sslmode=require
+                  </code>
+                </div>
+              </div>
+
+              <button
+                onClick={() => copyToClipboard('postgresql://neondb_owner:YOUR_PASSWORD@ep-xyz.us-east-2.aws.neon.tech/neondb?sslmode=require', 'neon')}
+                className="btn-secondary"
+                style={{ width: '100%', fontSize: '0.75rem', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+              >
+                {copiedKey === 'neon' ? <Check size={14} color="#10b981" /> : <Copy size={14} />}
+                {copiedKey === 'neon' ? 'Copied Template!' : 'Copy Neon URI Template'}
+              </button>
+            </div>
+
+            {/* MySQL */}
+            <div className="card" style={{
+              padding: '24px',
+              backgroundColor: 'var(--color-surface)',
+              border: dbHealth.dbType === 'mysql' ? '2px solid var(--color-primary)' : '1px solid var(--color-border)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: 'rgba(0, 117, 143, 0.15)', color: '#00758f', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem' }}>
+                      🐬
+                    </div>
+                    <div>
+                      <h4 style={{ fontSize: '1.1rem', fontWeight: 800, margin: 0 }}>MySQL Relational</h4>
+                      <span style={{ fontSize: '0.6875rem', color: 'var(--color-text-muted)', fontWeight: 700 }}>XAMPP / VPS / cPanel / Railway</span>
+                    </div>
+                  </div>
+                  {dbHealth.dbType === 'mysql' && (
+                    <span className="badge badge-primary" style={{ fontSize: '0.65rem' }}>Active Engine</span>
+                  )}
+                </div>
+
+                <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)', lineHeight: 1.5, marginBottom: '14px' }}>
+                  Standard high-performance MySQL connection pool via <code>mysql2</code>. Supports traditional hosting, cPanel databases, Docker, or self-hosted servers.
+                </p>
+
+                <div style={{ backgroundColor: 'var(--color-surface-raised)', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', marginBottom: '14px' }}>
+                  <div style={{ fontSize: '0.6875rem', color: 'var(--color-text-faint)', fontWeight: 700, marginBottom: '4px', textTransform: 'uppercase' }}>Connection Format:</div>
+                  <code style={{ fontSize: '0.72rem', color: 'var(--color-text)', wordBreak: 'break-all', display: 'block' }}>
+                    mysql://root:password@127.0.0.1:3306/gymsoft
+                  </code>
+                </div>
+              </div>
+
+              <button
+                onClick={() => copyToClipboard('mysql://root:password@127.0.0.1:3306/gymsoft', 'mysql')}
+                className="btn-secondary"
+                style={{ width: '100%', fontSize: '0.75rem', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+              >
+                {copiedKey === 'mysql' ? <Check size={14} color="#10b981" /> : <Copy size={14} />}
+                {copiedKey === 'mysql' ? 'Copied Template!' : 'Copy MySQL URI Template'}
+              </button>
+            </div>
+
+            {/* SQLite */}
+            <div className="card" style={{
+              padding: '24px',
+              backgroundColor: 'var(--color-surface)',
+              border: dbHealth.dbType === 'sqlite' ? '2px solid var(--color-primary)' : '1px solid var(--color-border)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem' }}>
+                      ⚡
+                    </div>
+                    <div>
+                      <h4 style={{ fontSize: '1.1rem', fontWeight: 800, margin: 0 }}>SQLite (Node 25 Built-In)</h4>
+                      <span style={{ fontSize: '0.6875rem', color: '#38bdf8', fontWeight: 700 }}>Zero Setup / Single File</span>
+                    </div>
+                  </div>
+                  {dbHealth.dbType === 'sqlite' && (
+                    <span className="badge badge-primary" style={{ fontSize: '0.65rem' }}>Active Engine</span>
+                  )}
+                </div>
+
+                <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)', lineHeight: 1.5, marginBottom: '14px' }}>
+                  Built directly into Node 25 using <code>node:sqlite</code>. Zero external installations, zero native compiling. File saved automatically as <code>gymsoft.db</code>.
+                </p>
+
+                <div style={{ backgroundColor: 'var(--color-surface-raised)', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', marginBottom: '14px' }}>
+                  <div style={{ fontSize: '0.6875rem', color: 'var(--color-text-faint)', fontWeight: 700, marginBottom: '4px', textTransform: 'uppercase' }}>File Location:</div>
+                  <code style={{ fontSize: '0.72rem', color: 'var(--color-text)', wordBreak: 'break-all', display: 'block' }}>
+                    ./gymsoft.db (Automatic Local Persistence)
+                  </code>
+                </div>
+              </div>
+
+              <div style={{
+                padding: '8px 12px',
+                borderRadius: 'var(--radius-xs)',
+                backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                color: '#38bdf8',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                textAlign: 'center',
+              }}>
+                ✓ Default Local Fallback Engine
+              </div>
+            </div>
+          </div>
+
+          {/* Live Connection String Tester */}
+          <div className="card" style={{ padding: '24px', backgroundColor: 'var(--color-surface)' }}>
+            <h4 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '6px' }}>
+              🔌 Test & Validate Connection String
+            </h4>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)', marginBottom: '16px' }}>
+              Paste your Neon DB PostgreSQL or MySQL connection string below to test engine syntax detection and compatibility:
+            </p>
+
+            <form onSubmit={handleTestConnection} style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              <input
+                type="text"
+                placeholder="e.g. postgresql://neondb_owner:secret@ep-cool-glade.neon.tech/neondb?sslmode=require"
+                value={testUri}
+                onChange={(e) => setTestUri(e.target.value)}
+                className="input-field"
+                style={{ flex: 1, minWidth: '300px', fontSize: '0.8125rem' }}
+              />
+              <button
+                type="submit"
+                disabled={isTestingDb || !testUri.trim()}
+                className="btn-primary"
+                style={{ padding: '10px 20px', fontWeight: 800, fontSize: '0.8125rem' }}
+              >
+                {isTestingDb ? 'Validating...' : 'Validate Connection URI'}
+              </button>
+            </form>
+
+            {testResult && (
+              <div style={{
+                marginTop: '16px',
+                padding: '14px 16px',
+                borderRadius: 'var(--radius-sm)',
+                backgroundColor: testResult.success ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                border: testResult.success ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid rgba(239, 68, 68, 0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}>
+                {testResult.success ? <CheckCircle2 size={20} color="#10b981" /> : <AlertTriangle size={20} color="#ef4444" />}
+                <div>
+                  <strong style={{ fontSize: '0.875rem', color: testResult.success ? '#10b981' : '#ef4444' }}>
+                    {testResult.message || testResult.error}
+                  </strong>
+                  {testResult.detectedEngine && (
+                    <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '2px' }}>
+                      Target Database Engine: <strong>{testResult.detectedEngine.toUpperCase()}</strong>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
