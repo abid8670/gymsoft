@@ -18,8 +18,8 @@ app.use('/api', apiRouter);
 const distPath = path.join(process.cwd(), 'dist');
 app.use(express.static(distPath));
 
-// Fallback to index.html for client-side routing
-app.get('*', (req, res, next) => {
+// Fallback to index.html for client-side routing (Express 5 compatible)
+app.use((req, res, next) => {
   if (req.path.startsWith('/api')) {
     return next();
   }
